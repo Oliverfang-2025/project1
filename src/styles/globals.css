@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+/* 基础样式 */
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Inter', sans-serif;
+  @apply antialiased;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+}
+
+/* 选择文本样式 */
+::selection {
+  @apply bg-primary-500/20 text-primary-900;
+}
+
+@layer components {
+  /* 容器 */
+  .container {
+    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+  }
+  
+  /* 按钮 */
+  .btn {
+    @apply px-4 py-2 font-medium text-white transition-colors bg-primary-600 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 font-medium transition-colors bg-white text-primary-600 border border-primary-600 rounded-md hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .btn-outline {
+    @apply px-4 py-2 font-medium transition-colors bg-transparent text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+  
+  .btn-rounded {
+    @apply rounded-full;
+  }
+  
+  /* 卡片样式 */
+  .card {
+    @apply p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+  }
+  
+  .card-border {
+    @apply p-6 bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-colors duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:-translate-y-1 transition-transform duration-300;
+  }
+
+  /* 标题样式 */
+  .section-title {
+    @apply text-3xl font-bold text-gray-900 sm:text-4xl;
+  }
+  
+  .section-subtitle {
+    @apply mt-2 text-lg text-gray-600;
+  }
+  
+  /* 导航链接 */
+  .nav-link {
+    @apply text-sm font-medium text-gray-500 hover:text-primary-600 transition-colors duration-200;
+  }
+  
+  .nav-link-active {
+    @apply text-primary-600 font-semibold;
+  }
+  
+  /* 文本渐变 */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600;
+  }
+  
+  /* 背景模糊效果 */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  
+  /* 动画类 */
+  .animate-hover {
+    @apply transition-all duration-300;
+  }
+  
+  .hover-lift {
+    @apply hover:-translate-y-1 transition-transform duration-300;
+  }
+} 
