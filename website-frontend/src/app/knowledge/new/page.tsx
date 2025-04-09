@@ -68,15 +68,15 @@ interface KnowledgeItem {
 
 export default function NewKnowledgePage() {
   const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef(null as HTMLInputElement | null);
   
-  const [contentType, setContentType] = useState<'article' | 'pdf' | 'wechat'>('article');
+  const [contentType, setContentType] = useState('article' as 'article' | 'pdf' | 'wechat');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState('');
   const [coverImage, setCoverImage] = useState('/images/placeholder.png');
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfFile, setPdfFile] = useState(null as File | null);
   const [wechatLink, setWechatLink] = useState('');
   const [wechatAccount, setWechatAccount] = useState('');
   const [summary, setSummary] = useState('');
@@ -91,7 +91,7 @@ export default function NewKnowledgePage() {
   ];
   
   // 处理表单提交
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     
     setIsSubmitting(true);
@@ -172,7 +172,7 @@ export default function NewKnowledgePage() {
   };
   
   // 处理PDF文件上传
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: any) => {
     const files = e.target.files;
     if (files && files.length > 0) {
       const file = files[0];
