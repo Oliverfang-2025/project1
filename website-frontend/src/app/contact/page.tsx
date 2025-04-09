@@ -312,12 +312,12 @@ export default function ContactPage() {
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-lg inline-block border border-gray-100 transform transition-transform hover:scale-105 duration-300">
-              <div className="w-72 h-72 relative mb-5 overflow-hidden ring-2 ring-primary-100 rounded-xl">
-                {/* 使用真实的微信公众号二维码图片 */}
+              <div className="w-72 h-72 relative mb-5 overflow-hidden ring-2 ring-primary-100 rounded-xl flex items-center justify-center bg-white">
+                {/* 使用标准img标签加载外部图片，确保图片正确显示 */}
                 <img 
-                  src="/images/wechat-qrcode-real.png" 
+                  src="https://github.com/Oliverfang-2025/project1/assets/161188446/31c5d2cd-3f95-4ee9-b54c-35d3f4cbcda5" 
                   alt="微信公众号二维码" 
-                  className="w-full h-full object-contain"
+                  className="max-w-full max-h-full object-contain"
                 />
               </div>
               <p className="text-gray-700 font-medium mb-1">扫描上方二维码关注</p>
