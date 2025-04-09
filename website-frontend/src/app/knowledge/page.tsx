@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Tabs } from 'antd';
 import KnowledgeCard from '@/components/knowledge/KnowledgeCard';
 import KnowledgeFilter from '@/components/knowledge/KnowledgeFilter';
+import KnowledgeSorter from '@/components/knowledge/KnowledgeSorter';
 import SearchBar from '@/components/common/SearchBar';
 
 // 示例知识数据，实际开发中应从API获取
@@ -130,7 +131,7 @@ export default function KnowledgePage() {
     // 排序
     switch(sortBy) {
       case 'newest':
-        result.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+        result.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
         break;
       case 'popular':
         result.sort((a, b) => b.likes - a.likes);
@@ -179,18 +180,10 @@ export default function KnowledgePage() {
         <SearchBar onSearch={handleSearch} placeholder="搜索知识内容..." />
         
         <div className="flex items-center space-x-4">
-          <div className="flex items-center">
-            <span className="mr-2 text-gray-700">排序:</span>
-            <select 
-              className="form-select rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-              value={sortBy}
-              onChange={(e) => handleSortChange(e.target.value)}
-            >
-              <option value="newest">最新发布</option>
-              <option value="popular">最多点赞</option>
-              <option value="commented">最多评论</option>
-            </select>
-          </div>
+          <KnowledgeSorter 
+            sortBy={sortBy}
+            onSortChange={handleSortChange}
+          />
           
           <Link 
             href="/knowledge/new" 

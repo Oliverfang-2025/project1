@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HeartOutlined, HeartFilled, MessageOutlined, ShareAltOutlined, FilePdfOutlined, WechatOutlined, FileTextOutlined } from '@ant-design/icons';
+import { CalendarOutlined, HeartOutlined, MessageOutlined, ClockCircleOutlined, FilePdfOutlined, WechatOutlined, FileTextOutlined } from '@ant-design/icons';
 
+// 知识项目类型定义
 interface KnowledgeItem {
   id: string;
   title: string;
@@ -25,22 +26,9 @@ interface KnowledgeCardProps {
 }
 
 const KnowledgeCard = ({ item }: KnowledgeCardProps) => {
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(item.likes);
-  
-  const handleLike = () => {
-    if (!liked) {
-      setLikeCount(likeCount + 1);
-    } else {
-      setLikeCount(likeCount - 1);
-    }
-    setLiked(!liked);
-    // 实际项目中，这里应该调用API将点赞状态保存到数据库
-  };
-  
-  // 根据内容类型返回不同的图标
-  const getTypeIcon = () => {
-    switch(item.type) {
+  // 根据不同类型显示不同图标
+  const renderTypeIcon = () => {
+    switch (item.type) {
       case 'pdf':
         return <FilePdfOutlined className="text-red-500" />;
       case 'wechat':
@@ -50,92 +38,89 @@ const KnowledgeCard = ({ item }: KnowledgeCardProps) => {
         return <FileTextOutlined className="text-blue-500" />;
     }
   };
-  
+
+  // 截断内容文本
+  const truncateContent = (text: string, maxLength: number = 120) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + '...';
+  };
+
   // 格式化日期
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('zh-CN', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('zh-CN', options);
   };
-  
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-      {/* 卡片顶部图片区域 */}
-      <div className="relative h-48 overflow-hidden">
-        <Image 
-          src={item.coverImage} 
-          alt={item.title} 
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100">
+      <div className="relative h-48 w-full">
+        <Image
+          src={item.coverImage || '/images/default-cover.jpg'}
+          alt={item.title}
           fill
-          className="object-cover transition duration-300 hover:scale-105"
+          className="object-cover"
         />
-        <div className="absolute top-0 right-0 bg-primary text-white px-3 py-1 m-2 rounded-full flex items-center space-x-1">
-          {getTypeIcon()}
-          <span className="ml-1 text-xs uppercase">
-            {item.type === 'article' ? '原创' : item.type === 'wechat' ? '微信' : 'PDF'}
+        <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded-md flex items-center space-x-1 text-sm font-medium">
+          {renderTypeIcon()}
+          <span>
+            {item.type === 'pdf' ? 'PDF文档' : item.type === 'wechat' ? '微信文章' : '原创文章'}
           </span>
         </div>
       </div>
       
-      {/* 卡片内容区域 */}
       <div className="p-5">
         <div className="flex justify-between items-start mb-2">
-          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-md">
             {item.category}
           </span>
-          <span className="text-xs text-gray-500">
-            {formatDate(item.publishDate)}
-          </span>
+          <div className="flex items-center text-gray-500 text-sm">
+            <ClockCircleOutlined className="mr-1" />
+            <span>{item.readTime} 分钟</span>
+          </div>
         </div>
         
-        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 hover:text-primary">
-          <Link href={`/knowledge/${item.id}`}>
+        <Link href={`/knowledge/${item.id}`}>
+          <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-primary transition-colors">
             {item.title}
-          </Link>
-        </h3>
+          </h3>
+        </Link>
         
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-          {item.content}
+        <p className="text-gray-600 mb-4 text-sm">
+          {truncateContent(item.content)}
         </p>
         
-        <div className="flex justify-between items-center">
-          <div className="flex space-x-4">
-            <button 
-              onClick={handleLike}
-              className="flex items-center space-x-1 text-gray-500 hover:text-primary"
+        <div className="flex flex-wrap gap-1 mb-4">
+          {item.tags.slice(0, 3).map((tag, index) => (
+            <span 
+              key={index} 
+              className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
             >
-              {liked ? 
-                <HeartFilled className="text-primary" /> : 
-                <HeartOutlined />
-              }
-              <span>{likeCount}</span>
-            </button>
-            <Link href={`/knowledge/${item.id}#comments`} className="flex items-center space-x-1 text-gray-500 hover:text-primary">
-              <MessageOutlined />
-              <span>{item.comments}</span>
-            </Link>
-            <button className="flex items-center space-x-1 text-gray-500 hover:text-primary">
-              <ShareAltOutlined />
-            </button>
+              {tag}
+            </span>
+          ))}
+          {item.tags.length > 3 && (
+            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+              +{item.tags.length - 3}
+            </span>
+          )}
+        </div>
+        
+        <div className="flex justify-between items-center text-sm text-gray-500 pt-4 border-t border-gray-100">
+          <div className="flex items-center">
+            <CalendarOutlined className="mr-1" />
+            <span>{formatDate(item.publishDate)}</span>
           </div>
           
-          <Link
-            href={
-              item.type === 'pdf' ? (item.fileUrl || '#') :
-              item.type === 'wechat' ? (item.originalLink || '#') :
-              `/knowledge/${item.id}`
-            }
-            target={item.type === 'pdf' || item.type === 'wechat' ? '_blank' : '_self'}
-            className="text-primary text-sm font-medium hover:text-primary-dark"
-          >
-            {
-              item.type === 'pdf' ? '查看PDF' :
-              item.type === 'wechat' ? '查看原文' :
-              '阅读全文'
-            } →
-          </Link>
+          <div className="flex space-x-3">
+            <div className="flex items-center">
+              <HeartOutlined className="mr-1" />
+              <span>{item.likes}</span>
+            </div>
+            <div className="flex items-center">
+              <MessageOutlined className="mr-1" />
+              <span>{item.comments}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
