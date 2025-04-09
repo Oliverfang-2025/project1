@@ -80,7 +80,7 @@ const KnowledgeCard = ({ item }: KnowledgeCardProps) => {
         </div>
         
         <Link href={`/knowledge/${item.id}`}>
-          <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-primary transition-colors">
+          <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-primary-600 transition-colors">
             {item.title}
           </h3>
         </Link>

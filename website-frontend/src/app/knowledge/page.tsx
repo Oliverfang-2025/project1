@@ -187,7 +187,7 @@ export default function KnowledgePage() {
           
           <Link 
             href="/knowledge/new" 
-            className="btn-primary px-4 py-2 rounded-md text-white bg-primary hover:bg-primary-dark transition"
+            className="px-4 py-2 rounded-md text-white bg-primary-600 hover:bg-primary-700 transition shadow-sm font-medium"
           >
             分享新知识
           </Link>
@@ -232,7 +232,7 @@ export default function KnowledgePage() {
             <div className="text-center py-20">
               <p className="text-gray-500 text-xl">没有找到相关知识内容</p>
               <button 
-                className="mt-4 text-primary hover:text-primary-dark"
+                className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition shadow-sm font-medium"
                 onClick={() => {
                   setActiveCategory('all');
                   setActiveTags([]);

@@ -135,7 +135,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
                   <div className="flex items-center space-x-6">
                     <button 
                       onClick={() => handleLikeComment(comment.id)}
-                      className="flex items-center text-sm text-gray-500 hover:text-primary"
+                      className="flex items-center text-sm text-gray-500 hover:text-primary-600"
                     >
                       <HeartOutlined className="mr-1" />
                       <span>{comment.likes}</span>
@@ -143,7 +143,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
                     
                     <button 
                       onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
-                      className="text-sm text-gray-500 hover:text-primary"
+                      className="text-sm text-gray-500 hover:text-primary-600"
                     >
                       回复
                     </button>
@@ -160,11 +160,11 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
                       value={replyContent}
                       onChange={(e) => setReplyContent(e.target.value)}
                       placeholder="写下你的回复..."
-                      className="flex-1 border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="flex-1 border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                     <button
                       onClick={() => handleAddReply(comment.id)}
-                      className="bg-primary text-white px-4 rounded-r-md hover:bg-primary-dark flex items-center"
+                      className="bg-primary-600 text-white px-4 rounded-r-md hover:bg-primary-700 flex items-center"
                     >
                       <SendOutlined />
                     </button>
@@ -203,7 +203,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
                           
                           <button 
                             onClick={() => handleLikeComment(reply.id)}
-                            className="flex items-center text-xs text-gray-500 hover:text-primary"
+                            className="flex items-center text-xs text-gray-500 hover:text-primary-600"
                           >
                             <HeartOutlined className="mr-1" />
                             <span>{reply.likes}</span>
@@ -232,7 +232,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
           onChange={(e) => setNewComment(e.target.value)}
           rows={4}
           placeholder="写下你的想法..."
-          className="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         <div className="flex justify-end">
           <button
@@ -240,7 +240,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
             disabled={!newComment.trim()}
             className={`px-6 py-2 rounded-md flex items-center space-x-2 ${
               newComment.trim() 
-                ? 'bg-primary text-white hover:bg-primary-dark' 
+                ? 'bg-primary-600 text-white hover:bg-primary-700' 
                 : 'bg-gray-200 text-gray-500 cursor-not-allowed'
             }`}
           >

@@ -12,9 +12,9 @@ interface KnowledgeSorterProps {
 const KnowledgeSorter = ({ sortBy, onSortChange }: KnowledgeSorterProps) => {
   return (
     <div className="flex items-center">
-      <span className="mr-2 text-gray-700">排序:</span>
+      <span className="mr-2 text-gray-700 font-medium">排序:</span>
       <select 
-        className="form-select rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+        className="form-select rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50"
         value={sortBy}
         onChange={(e) => onSortChange(e.target.value)}
       >

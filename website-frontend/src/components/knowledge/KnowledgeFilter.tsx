@@ -34,7 +34,7 @@ const KnowledgeFilter = ({
               onClick={() => onCategoryChange(category.id)}
               className={`block w-full text-left px-3 py-2 rounded-md transition ${
                 activeCategory === category.id
-                  ? 'bg-primary text-white font-medium'
+                  ? 'bg-primary-600 text-white font-medium shadow-sm'
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
@@ -57,7 +57,7 @@ const KnowledgeFilter = ({
               onClick={() => onTagToggle(tag)}
               className={`px-3 py-1 rounded-full text-sm transition ${
                 activeTags.includes(tag)
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary-600 text-white shadow-sm'
                   : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
               }`}
             >
@@ -77,7 +77,7 @@ const KnowledgeFilter = ({
                 type="radio"
                 id={period}
                 name="timePeriod"
-                className="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
               />
               <label htmlFor={period} className="ml-2 text-gray-700">
                 {period}
@@ -94,7 +94,7 @@ const KnowledgeFilter = ({
             onCategoryChange('all');
             activeTags.forEach(tag => onTagToggle(tag));
           }}
-          className="w-full py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 transition"
+          className="w-full py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition font-medium"
         >
           清除所有过滤器
         </button>
