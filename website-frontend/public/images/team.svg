@@ -1,0 +1,65 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="400" height="300" fill="#F0F9FF" />
+  
+  <!-- 装饰背景 -->
+  <rect x="0" y="180" width="400" height="120" fill="#BAE6FD" />
+  
+  <!-- 人物1 - 中间主要人物 -->
+  <g transform="translate(200, 150)">
+    <!-- 头部 -->
+    <circle cx="0" cy="-40" r="30" fill="#0EA5E9" />
+    <!-- 面部 -->
+    <circle cx="0" cy="-40" r="24" fill="#F8FAFC" />
+    <!-- 身体 -->
+    <path d="M-25 -10 L25 -10 L25 60 L-25 60 Z" fill="#0EA5E9" />
+    <!-- 领带 -->
+    <path d="M-5 -10 L0 -5 L5 -10 L5 30 L0 40 L-5 30 Z" fill="#0F172A" />
+  </g>
+  
+  <!-- 人物2 - 左侧 -->
+  <g transform="translate(130, 160)">
+    <!-- 头部 -->
+    <circle cx="0" cy="-30" r="25" fill="#F97316" />
+    <!-- 面部 -->
+    <circle cx="0" cy="-30" r="20" fill="#F8FAFC" />
+    <!-- 身体 -->
+    <path d="M-20 -5 L20 -5 L20 50 L-20 50 Z" fill="#F97316" />
+  </g>
+  
+  <!-- 人物3 - 右侧 -->
+  <g transform="translate(270, 160)">
+    <!-- 头部 -->
+    <circle cx="0" cy="-30" r="25" fill="#D946EF" />
+    <!-- 面部 -->
+    <circle cx="0" cy="-30" r="20" fill="#F8FAFC" />
+    <!-- 身体 -->
+    <path d="M-20 -5 L20 -5 L20 50 L-20 50 Z" fill="#D946EF" />
+    <!-- 长发 -->
+    <path d="M-15 -30 C-25 -20 -28 -10 -25 10 C-18 0 -15 -15 -15 -30 Z" fill="#F8FAFC" />
+    <path d="M15 -30 C25 -20 28 -10 25 10 C18 0 15 -15 15 -30 Z" fill="#F8FAFC" />
+  </g>
+  
+  <!-- 人物4 - 左远 -->
+  <g transform="translate(70, 170)">
+    <!-- 头部 -->
+    <circle cx="0" cy="-25" r="20" fill="#22C55E" />
+    <!-- 面部 -->
+    <circle cx="0" cy="-25" r="16" fill="#F8FAFC" />
+    <!-- 身体 -->
+    <path d="M-18 -5 L18 -5 L18 40 L-18 40 Z" fill="#22C55E" />
+  </g>
+  
+  <!-- 人物5 - 右远 -->
+  <g transform="translate(330, 170)">
+    <!-- 头部 -->
+    <circle cx="0" cy="-25" r="20" fill="#4F46E5" />
+    <!-- 面部 -->
+    <circle cx="0" cy="-25" r="16" fill="#F8FAFC" />
+    <!-- 身体 -->
+    <path d="M-18 -5 L18 -5 L18 40 L-18 40 Z" fill="#4F46E5" />
+  </g>
+  
+  <!-- 标题文字 -->
+  <text x="200" y="250" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#0C4A6E">我们的团队</text>
+</svg> 

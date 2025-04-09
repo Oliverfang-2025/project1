@@ -78,13 +78,18 @@
 - **个性化内容**: 展示专业背景、职业规划和知识分享
 - **交互体验**: 流畅的页面转换和用户交互
 - **联系功能**: 提供多种联系方式和社交媒体链接
+- **团队展示**: 展示团队成员信息和技能
+- **知识管理**: 分类整理和展示专业知识文章
+- **评论系统**: 支持用户评论和互动，带随机头像功能
 
 ## 页面结构
 
-- **首页 (/)**: 展示个人简介和网站主要内容的入口
+- **首页 (/)**: 展示个人简介、团队介绍和网站主要内容的入口
 - **关于我 (/about)**: 详细的个人介绍、专业技能、工作经验和教育背景
 - **职业规划 (/plans)**: 展示职业目标和项目规划时间线
 - **知识分享 (/knowledge)**: 分享专业知识和行业见解
+  - **知识详情 (/knowledge/[id])**: 文章详情页，支持评论和点赞
+  - **新建知识 (/knowledge/new)**: 创建新的知识内容
 - **联系方式 (/contact)**: 提供多种联系方式和社交媒体链接
 
 ## 联系页面
@@ -98,11 +103,36 @@
   - 微信公众号: https://mp.weixin.qq.com/s/eqi0peIX25QuMYaN1uI6qA
   - LinkedIn: www.linkedin.com/in/邈霖-oliver-方（fang）-396908105
 
+## 新增功能
+
+### 团队展示组件
+
+- 展示团队成员信息、职位和专业技能
+- 每位成员配有个性化头像
+- 支持团队合影展示
+- 响应式设计，适配各种设备
+
+### 高级头像系统
+
+- 提供多种类型的SVG头像
+- 支持用户、专业人士、女性等不同风格
+- 为评论系统提供随机头像功能
+- 在知识详情页展示作者信息卡片
+
+### 评论与互动
+
+- 支持文章评论和回复功能
+- 点赞系统，支持文章和评论
+- 随机头像系统增强用户体验
+- 支持移动端友好的底部互动栏
+
 ## 技术栈
 
 - **前端框架**: Next.js 14
 - **UI框架**: Tailwind CSS
 - **编程语言**: TypeScript
+- **UI组件**: Ant Design Icons
+- **图像处理**: SVG自定义图标和头像
 - **包管理器**: npm
 - **部署**: Vercel
 
@@ -148,20 +178,43 @@ npm run start
 ```
 website-frontend/
 ├── public/               # 静态资源
+│   ├── images/           # 图片资源
+│   │   ├── avatars/      # 用户头像
+│   │   └── ...           # 其他图片资源
 ├── src/                  # 源代码
 │   ├── app/              # 页面组件
 │   │   ├── page.tsx      # 首页
 │   │   ├── about/        # 关于页面
 │   │   ├── plans/        # 职业规划页面
 │   │   ├── knowledge/    # 知识分享页面
+│   │   │   ├── [id]/     # 文章详情页
+│   │   │   └── new/      # 创建新文章页
 │   │   ├── contact/      # 联系方式页面
 │   │   └── layout.tsx    # 全局布局
 │   ├── components/       # 可复用组件
+│   │   ├── common/       # 通用组件
+│   │   ├── home/         # 首页相关组件
+│   │   │   ├── AboutSection.tsx   # 关于板块
+│   │   │   ├── TeamSection.tsx    # 团队板块
+│   │   │   └── ...                # 其他首页组件
+│   │   ├── knowledge/    # 知识模块组件
+│   │   │   ├── CommentSection.tsx # 评论组件
+│   │   │   ├── KnowledgeCard.tsx  # 知识卡片
+│   │   │   └── ...                # 其他知识相关组件
+│   │   └── layout/       # 布局组件
 │   ├── styles/           # 全局样式
 │   └── types/            # TypeScript类型定义
 ├── package.json          # 项目依赖
 └── tailwind.config.js    # Tailwind配置
 ```
+
+## 贡献指南
+
+1. 克隆项目到本地
+2. 创建新的功能分支 (`git checkout -b feature/amazing-feature`)
+3. 提交你的更改 (`git commit -m 'Add some amazing feature'`)
+4. 推送到分支 (`git push origin feature/amazing-feature`)
+5. 提交Pull Request
 
 ## 许可证
 

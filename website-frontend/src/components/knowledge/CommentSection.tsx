@@ -5,6 +5,23 @@ import { Comment, Reply, CommentSectionProps } from '@/types/knowledge';
 
 // 注意：已将接口定义移动到types/knowledge.d.ts文件中
 
+// 头像选项数组，用于随机选择
+const avatarOptions = [
+  '/images/avatars/guest.svg',
+  '/images/avatars/user1.svg',
+  '/images/avatars/user2.svg',
+  '/images/avatars/user3.svg',
+  '/images/avatars/female.svg',
+  '/images/avatars/professional.svg',
+  '/images/avatars/oliver.svg'
+];
+
+// 随机获取一个头像URL
+const getRandomAvatar = () => {
+  const randomIndex = Math.floor(Math.random() * avatarOptions.length);
+  return avatarOptions[randomIndex];
+};
+
 const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
   const [commentList, setCommentList] = useState(comments as Comment[]);
   const [newComment, setNewComment] = useState('');
@@ -18,7 +35,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
     const comment: Comment = {
       id: `comment-${Date.now()}`,
       author: '访客', // 实际项目中应从用户信息获取
-      avatar: '/images/avatars/guest.png',
+      avatar: getRandomAvatar(), // 使用随机头像
       content: newComment,
       publishDate: new Date().toISOString(),
       likes: 0
@@ -37,7 +54,7 @@ const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
     const reply: Reply = {
       id: `reply-${Date.now()}`,
       author: '访客', // 实际项目中应从用户信息获取
-      avatar: '/images/avatars/guest.png',
+      avatar: getRandomAvatar(), // 使用随机头像
       content: replyContent,
       publishDate: new Date().toISOString(),
       likes: 0

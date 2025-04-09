@@ -8,6 +8,7 @@ import PlanSection from '@/components/home/PlanSection';
 import KnowledgeSection from '@/components/home/KnowledgeSection';
 import InterestSection from '@/components/home/InterestSection';
 import TimelineSection from '@/components/home/TimelineSection';
+import TeamSection from '@/components/home/TeamSection';
 
 export default function Home() {
   return (
@@ -63,6 +64,9 @@ export default function Home() {
       <div className="space-y-24 py-20">
         {/* 关于我 */}
         <AboutSection />
+        
+        {/* 我的团队 */}
+        <TeamSection />
         
         {/* 我的计划 */}
         <PlanSection />

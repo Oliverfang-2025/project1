@@ -75,7 +75,7 @@ export default function NewKnowledgePage() {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState('');
-  const [coverImage, setCoverImage] = useState('/images/placeholder.png');
+  const [coverImage, setCoverImage] = useState('/images/default-cover.svg');
   const [pdfFile, setPdfFile] = useState(null as File | null);
   const [wechatLink, setWechatLink] = useState('');
   const [wechatAccount, setWechatAccount] = useState('');

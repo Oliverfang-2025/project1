@@ -100,6 +100,44 @@ export default function AboutSection() {
             </Link>
           </div>
         </div>
+        
+        {/* 团队部分 */}
+        <div className="mt-24">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-3">我的团队</h3>
+            <div className="w-16 h-1 bg-primary-500 mx-auto mb-6"></div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              与我一起工作的专业人才，共同推动半导体测试领域的创新
+            </p>
+          </div>
+          
+          <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl shadow-xl transform transition-transform hover:scale-105 duration-300">
+            <Image
+              src="/images/team.svg"
+              alt="我们的团队"
+              width={400}
+              height={300}
+              className="w-full h-auto"
+            />
+            
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
+              <p className="font-medium text-lg">专业的半导体测试团队</p>
+              <p className="text-sm text-white/80">集成电路测试领域的专业人才</p>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center">
+            <Link 
+              href="/team" 
+              className="inline-flex items-center px-6 py-3 rounded-full bg-gray-100 text-primary-600 font-medium hover:bg-gray-200 transition-colors"
+            >
+              了解团队成员
+              <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

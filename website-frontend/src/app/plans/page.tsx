@@ -124,6 +124,17 @@ export default function PlansPage() {
                   <h3 className="text-xl font-bold text-gray-900">{goal.title}</h3>
                 </div>
                 <p className="text-gray-600">{goal.description}</p>
+                
+                {/* 为团队建设目标添加团队图像 */}
+                {goal.title === "团队建设" && (
+                  <div className="mt-4 relative w-full h-32 rounded-lg overflow-hidden">
+                    <img 
+                      src="/images/team.svg" 
+                      alt="团队建设" 
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>

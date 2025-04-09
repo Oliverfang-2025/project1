@@ -15,7 +15,9 @@ import {
   FileTextOutlined,
   FilePdfOutlined,
   WechatOutlined,
-  ArrowLeftOutlined
+  ArrowLeftOutlined,
+  DownloadOutlined,
+  LinkOutlined
 } from '@ant-design/icons';
 import CommentSection from '@/components/knowledge/CommentSection';
 import { Comment } from '@/types/knowledge';
@@ -91,7 +93,7 @@ const demoKnowledgeItems = [
     </ul>
     
     <p>总之，半导体测试是确保芯片质量的关键环节，通过系统化、标准化的测试流程，可以有效筛选出不合格产品，保证最终交付给客户的芯片满足性能和可靠性要求。</p>`,
-    coverImage: '/images/placeholder.png',
+    coverImage: '/images/knowledge-cover1.svg',
     author: 'Oliver Fang',
     publishDate: '2023-05-15',
     tags: ['半导体', '测试', '生产管理'],
@@ -101,7 +103,7 @@ const demoKnowledgeItems = [
       {
         id: '101',
         author: '张工',
-        avatar: '/images/avatars/user1.jpg',
+        avatar: '/images/avatars/user1.svg',
         content: '文章内容非常详细，对CP和FT测试的区别解释得很清楚，感谢分享！',
         publishDate: '2023-05-16',
         likes: 5,
@@ -109,7 +111,7 @@ const demoKnowledgeItems = [
       {
         id: '102',
         author: '李工程师',
-        avatar: '/images/avatars/user2.jpg',
+        avatar: '/images/avatars/user2.svg',
         content: '请问车规级芯片的温度循环测试一般需要多少个循环？',
         publishDate: '2023-05-17',
         likes: 2,
@@ -117,7 +119,7 @@ const demoKnowledgeItems = [
           {
             id: '102-1',
             author: 'Oliver Fang',
-            avatar: '/images/avatars/oliver.jpg',
+            avatar: '/images/avatars/oliver.svg',
             content: '根据AEC-Q100规范，温度循环测试通常需要1000个循环，但具体要求可能因产品等级和客户要求有所不同。',
             publishDate: '2023-05-17',
             likes: 3,
@@ -132,7 +134,7 @@ const demoKnowledgeItems = [
     title: 'IATF16949体系认证经验分享',
     type: 'pdf',
     content: '这是一份详细的IATF16949体系认证经验分享文档...',
-    coverImage: '/images/placeholder.png',
+    coverImage: '/images/knowledge-cover2.svg',
     author: 'Oliver Fang',
     publishDate: '2023-06-22',
     tags: ['质量管理', 'IATF16949', '认证'],
@@ -149,7 +151,7 @@ const demoKnowledgeItems = [
     title: '半导体生产效率提升方法',
     type: 'wechat',
     content: '这是一篇来自我的微信公众号的文章，探讨了提高半导体生产效率的实用方法...',
-    coverImage: '/images/placeholder.png',
+    coverImage: '/images/knowledge-cover3.svg',
     author: 'Oliver Fang',
     publishDate: '2023-07-08',
     tags: ['生产效率', '优化', '半导体'],
@@ -264,7 +266,14 @@ export default function KnowledgeDetailPage({ params }: { params: { id: string }
         
         <div className="flex items-center text-gray-600 mb-6">
           <div className="flex items-center mr-6">
-            <UserOutlined className="mr-2" />
+            <div className="relative w-8 h-8 rounded-full overflow-hidden mr-2">
+              <Image 
+                src={article.author === 'Oliver Fang' ? '/images/avatars/oliver.svg' : '/images/avatars/professional.svg'} 
+                alt={article.author}
+                fill
+                className="object-cover"
+              />
+            </div>
             <span>{article.author}</span>
           </div>
           <div className="flex items-center mr-6">
@@ -392,13 +401,98 @@ export default function KnowledgeDetailPage({ params }: { params: { id: string }
         </div>
       </div>
       
+      {/* 底部操作栏 */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2 px-4 flex justify-between items-center z-50">
+        <div className="flex items-center">
+          <button 
+            onClick={handleLike}
+            className={`flex items-center mr-4 px-3 py-1 rounded-full ${
+              liked ? 'text-red-500 bg-red-50' : 'text-gray-600 hover:text-red-500'
+            }`}
+          >
+            {liked ? <HeartFilled /> : <HeartOutlined />}
+            <span className="ml-1">{likeCount}</span>
+          </button>
+          
+          <Link
+            href={`${pathname}#comments`}
+            className="flex items-center px-3 py-1 rounded-full text-gray-600 hover:text-primary-600"
+          >
+            <MessageOutlined />
+            <span className="ml-1">{
+              typeof article.comments === 'number' 
+                ? article.comments 
+                : article.comments.length
+            }</span>
+          </Link>
+        </div>
+        
+        {article.fileUrl && (
+          <a 
+            href={article.fileUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn-primary bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-dark transition inline-flex items-center text-sm"
+          >
+            <DownloadOutlined className="mr-1" />
+            下载
+          </a>
+        )}
+        
+        {article.originalLink && (
+          <a 
+            href={article.originalLink} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn-primary bg-primary text-white px-4 py-1 rounded-full hover:bg-primary-dark transition inline-flex items-center text-sm"
+          >
+            <LinkOutlined className="mr-1" />
+            原文链接
+          </a>
+        )}
+      </div>
+      
+      {/* 作者卡片 */}
+      <div className="my-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+        <div className="flex items-start">
+          <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
+            <Image 
+              src={article.author === 'Oliver Fang' ? '/images/avatars/oliver.svg' : '/images/avatars/professional.svg'}
+              alt={article.author}
+              fill
+              className="object-cover"
+            />
+          </div>
+          
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-gray-900 mb-1">{article.author}</h3>
+            <p className="text-gray-600 mb-3">
+              {article.author === 'Oliver Fang' 
+                ? '半导体/集成电路行业生产管理专家，擅长生产优化和测试流程管理' 
+                : '行业专家，分享专业知识和经验'}
+            </p>
+            <div className="flex space-x-3">
+              <Link 
+                href="/about" 
+                className="text-primary-600 hover:text-primary-700 font-medium text-sm"
+              >
+                了解更多
+              </Link>
+              <Link 
+                href="/contact" 
+                className="text-primary-600 hover:text-primary-700 font-medium text-sm"
+              >
+                联系作者
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* 评论区 */}
-      <div id="comments" className="mb-12">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">评论区</h3>
-        <CommentSection 
-          comments={article.comments || []} 
-          articleId={article.id}
-        />
+      <div id="comments" className="my-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">评论区</h2>
+        <CommentSection comments={article.comments} articleId={article.id} />
       </div>
       
       {/* 相关文章推荐 */}
