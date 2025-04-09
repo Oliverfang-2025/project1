@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UserOutlined, HeartOutlined, HeartFilled, SendOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 
-interface Reply {
+export interface Reply {
   id: string;
   author: string;
   avatar: string;
@@ -11,7 +11,7 @@ interface Reply {
   likes: number;
 }
 
-interface Comment {
+export interface Comment {
   id: string;
   author: string;
   avatar: string;
@@ -21,15 +21,15 @@ interface Comment {
   replies?: Reply[];
 }
 
-interface CommentSectionProps {
+export interface CommentSectionProps {
   comments: Comment[];
   articleId: string;
 }
 
 const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
-  const [commentList, setCommentList] = useState(comments);
+  const [commentList, setCommentList] = useState(comments as Comment[]);
   const [newComment, setNewComment] = useState('');
-  const [replyTo, setReplyTo] = useState<string | null>(null);
+  const [replyTo, setReplyTo] = useState(null as string | null);
   const [replyContent, setReplyContent] = useState('');
   
   // 添加新评论

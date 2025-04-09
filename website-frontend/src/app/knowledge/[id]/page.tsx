@@ -17,7 +17,7 @@ import {
   WechatOutlined,
   ArrowLeftOutlined
 } from '@ant-design/icons';
-import CommentSection from '@/components/knowledge/CommentSection';
+import CommentSection, { Comment } from '@/components/knowledge/CommentSection';
 
 // 示例知识数据，实际开发中应从API获取
 const demoKnowledgeItems = [
@@ -163,7 +163,7 @@ const demoKnowledgeItems = [
 ];
 
 export default function KnowledgeDetailPage({ params }: { params: { id: string } }) {
-  const [article, setArticle] = useState<any>(null);
+  const [article, setArticle] = useState(null as any);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const pathname = usePathname();
