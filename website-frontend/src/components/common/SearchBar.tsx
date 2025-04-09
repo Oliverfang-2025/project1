@@ -13,6 +13,7 @@ const SearchBar = ({
   className = '' 
 }: SearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -37,14 +38,16 @@ const SearchBar = ({
         type="text"
         value={searchQuery}
         onChange={handleChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         placeholder={placeholder}
-        className="w-full h-10 pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+        className="w-full h-11 pl-12 pr-4 py-2 bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
       />
       <button
         type="submit"
-        className="absolute left-0 top-0 h-full px-3 flex items-center text-gray-500 hover:text-primary"
+        className={`absolute left-0 top-0 h-full px-4 flex items-center ${isFocused ? 'text-primary-600' : 'text-gray-500'} hover:text-primary-600 transition-colors`}
       >
-        <SearchOutlined />
+        <SearchOutlined style={{ fontSize: '18px' }} />
       </button>
     </form>
   );

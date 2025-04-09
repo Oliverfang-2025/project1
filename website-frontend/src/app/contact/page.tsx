@@ -302,18 +302,35 @@ export default function ContactPage() {
       </section>
       
       {/* 关注公众号 */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">关注我的微信公众号</h2>
-            <p className="text-lg text-gray-600 mb-8">获取最新的半导体测试领域资讯和技术分享</p>
+            <div className="mb-10">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">关注我的微信公众号</h2>
+              <div className="w-20 h-1 bg-primary-500 mx-auto mb-6"></div>
+              <p className="text-lg text-gray-600">获取最新的半导体测试领域资讯和技术分享</p>
+            </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-md inline-block">
-              <div className="w-64 h-64 bg-gray-200 flex items-center justify-center mb-4">
-                {/* 这里放公众号二维码图片，需要替换为实际图片 */}
-                <div className="text-gray-500">微信公众号二维码</div>
+            <div className="bg-white p-8 rounded-2xl shadow-lg inline-block border border-gray-100 transform transition-transform hover:scale-105 duration-300">
+              <div className="w-72 h-72 relative mb-5 overflow-hidden ring-2 ring-primary-100 rounded-xl">
+                {/* 使用真实的微信公众号二维码图片 */}
+                <img 
+                  src="/images/wechat-qrcode-real.png" 
+                  alt="微信公众号二维码" 
+                  className="w-full h-full object-contain"
+                />
               </div>
-              <p className="text-gray-900 font-semibold">扫描上方二维码关注</p>
+              <p className="text-gray-700 font-medium mb-1">扫描上方二维码关注</p>
+              <p className="text-xl text-primary-600 font-bold flex items-center justify-center">
+                <svg className="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.32.32 0 0 0 .193-.066l2.378-1.63a.9.9 0 0 1 .482-.137c.085 0 .169.014.252.037 .917.235 1.876.367 2.856.367 .167 0 .334-.005.5-.015 -.638-.908-1.028-1.994-1.028-3.161 0-3.096 3.016-5.622 6.69-5.622 .186 0 .37.007.554.022C14.293 4.436 11.67 2.188 8.691 2.188zm9.4 5.784c-2.49 0-4.524 1.726-4.524 3.839 0 2.112 2.034 3.839 4.523 3.839 .602 0 1.18-.103 1.72-.284a.58.58 0 0 1 .425.053l1.673 1.15a.23.23 0 0 0 .14.048c.112 0 .205-.094.205-.208 0-.051-.021-.103-.034-.154l-.273-1.037a.555.555 0 0 1 .166-.534c1.267-.945 2.062-2.276 2.062-3.754 0-2.112-2.034-3.839-4.523-3.839Z" />
+                </svg>
+                星芯之火
+              </p>
+            </div>
+
+            <div className="mt-8 text-gray-500 text-sm max-w-lg mx-auto">
+              <p>关注后回复"<span className="font-medium text-primary-600">半导体</span>"获取行业最新资料，或回复"<span className="font-medium text-primary-600">测试</span>"加入技术交流群</p>
             </div>
           </div>
         </div>
