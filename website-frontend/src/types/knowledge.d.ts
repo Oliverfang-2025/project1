@@ -74,25 +74,4 @@ export interface KnowledgeFilterProps {
 export interface KnowledgeSorterProps {
   sortBy: string;
   onSortChange: (value: string) => void;
-}
-
-// 声明模块以提供类型支持
-declare module '@/components/knowledge/CommentSection' {
-  const CommentSection: React.FC<CommentSectionProps>;
-  export default CommentSection;
-}
-
-declare module '@/components/knowledge/KnowledgeCard' {
-  const KnowledgeCard: React.FC<KnowledgeCardProps>;
-  export default KnowledgeCard;
-}
-
-declare module '@/components/knowledge/KnowledgeFilter' {
-  const KnowledgeFilter: React.FC<KnowledgeFilterProps>;
-  export default KnowledgeFilter;
-}
-
-declare module '@/components/knowledge/KnowledgeSorter' {
-  const KnowledgeSorter: React.FC<KnowledgeSorterProps>;
-  export default KnowledgeSorter;
 } 

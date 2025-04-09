@@ -17,7 +17,8 @@ import {
   WechatOutlined,
   ArrowLeftOutlined
 } from '@ant-design/icons';
-import CommentSection, { Comment } from '@/components/knowledge/CommentSection';
+import CommentSection from '@/components/knowledge/CommentSection';
+import { Comment } from '@/types/knowledge';
 
 // 示例知识数据，实际开发中应从API获取
 const demoKnowledgeItems = [

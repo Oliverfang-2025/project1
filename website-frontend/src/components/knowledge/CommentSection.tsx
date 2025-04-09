@@ -1,30 +1,9 @@
 import React, { useState } from 'react';
 import { UserOutlined, HeartOutlined, HeartFilled, SendOutlined } from '@ant-design/icons';
 import Image from 'next/image';
+import { Comment, Reply, CommentSectionProps } from '@/types/knowledge';
 
-export interface Reply {
-  id: string;
-  author: string;
-  avatar: string;
-  content: string;
-  publishDate: string;
-  likes: number;
-}
-
-export interface Comment {
-  id: string;
-  author: string;
-  avatar: string;
-  content: string;
-  publishDate: string;
-  likes: number;
-  replies?: Reply[];
-}
-
-export interface CommentSectionProps {
-  comments: Comment[];
-  articleId: string;
-}
+// 注意：已将接口定义移动到types/knowledge.d.ts文件中
 
 const CommentSection = ({ comments, articleId }: CommentSectionProps) => {
   const [commentList, setCommentList] = useState(comments as Comment[]);
