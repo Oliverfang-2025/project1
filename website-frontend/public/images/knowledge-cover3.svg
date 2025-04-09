@@ -1,0 +1,24 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1200" height="600" fill="#ECFDF5" />
+  
+  <!-- 微信文章图形 -->
+  <g transform="translate(600, 250)">
+    <!-- 微信图标 -->
+    <circle cx="0" cy="0" r="150" fill="#10B981" />
+    
+    <!-- 简化的微信图标 -->
+    <path d="M-40 -20 C-40 -50 0 -80 40 -20 L60 -60 C60 -60 100 -30 80 20 C100 30 100 70 60 70 C50 100 -10 100 -40 70 C-90 70 -90 20 -60 10 C-90 -30 -60 -60 -40 -20 Z" fill="white"/>
+    
+    <!-- 对话框 -->
+    <rect x="-250" y="100" width="500" height="150" rx="20" fill="white" stroke="#10B981" stroke-width="8"/>
+    <text x="0" y="190" font-family="Arial" font-size="28" text-anchor="middle" fill="#10B981">分享我的行业知识和经验</text>
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="200" cy="150" r="80" fill="#A7F3D0" opacity="0.6" />
+  <circle cx="1000" cy="450" r="80" fill="#A7F3D0" opacity="0.6" />
+  
+  <!-- 文字 - 可选 -->
+  <text x="600" y="550" font-family="Arial" font-size="40" font-weight="bold" text-anchor="middle" fill="#10B981">半导体生产效率</text>
+</svg> 

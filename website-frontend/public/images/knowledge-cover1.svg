@@ -1,0 +1,37 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1200" height="600" fill="#F0F9FF" />
+  
+  <!-- 抽象半导体芯片图案 -->
+  <g transform="translate(600, 300)">
+    <!-- 芯片主体 -->
+    <rect x="-200" y="-200" width="400" height="400" fill="#0369A1" rx="20" />
+    
+    <!-- 电路图案 -->
+    <path d="M-180 -180 L-180 180 L180 180 L180 -180 Z" stroke="#7DD3FC" stroke-width="8" fill="none" />
+    <path d="M-150 -150 L-150 150 L150 150 L150 -150 Z" stroke="#7DD3FC" stroke-width="6" fill="none" />
+    <path d="M-120 -120 L-120 120 L120 120 L120 -120 Z" stroke="#7DD3FC" stroke-width="4" fill="none" />
+    
+    <!-- 连接线 -->
+    <line x1="-200" y1="-150" x2="-350" y2="-150" stroke="#0EA5E9" stroke-width="8" />
+    <line x1="-200" y1="-50" x2="-350" y2="-50" stroke="#0EA5E9" stroke-width="8" />
+    <line x1="-200" y1="50" x2="-350" y2="50" stroke="#0EA5E9" stroke-width="8" />
+    <line x1="-200" y1="150" x2="-350" y2="150" stroke="#0EA5E9" stroke-width="8" />
+    
+    <line x1="200" y1="-150" x2="350" y2="-150" stroke="#0EA5E9" stroke-width="8" />
+    <line x1="200" y1="-50" x2="350" y2="-50" stroke="#0EA5E9" stroke-width="8" />
+    <line x1="200" y1="50" x2="350" y2="50" stroke="#0EA5E9" stroke-width="8" />
+    <line x1="200" y1="150" x2="350" y2="150" stroke="#0EA5E9" stroke-width="8" />
+    
+    <!-- 中心点 -->
+    <circle cx="0" cy="0" r="40" fill="#BAE6FD" />
+    <circle cx="0" cy="0" r="20" fill="#0EA5E9" />
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="150" cy="150" r="80" fill="#BAE6FD" opacity="0.6" />
+  <circle cx="1050" cy="450" r="100" fill="#BAE6FD" opacity="0.6" />
+  
+  <!-- 文字 - 可选，真实网站可能不需要 -->
+  <text x="600" y="550" font-family="Arial" font-size="40" font-weight="bold" text-anchor="middle" fill="#0369A1">半导体测试流程</text>
+</svg> 

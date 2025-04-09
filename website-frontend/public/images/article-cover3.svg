@@ -1,0 +1,38 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#EFF6FF" />
+  
+  <!-- React主题图案 -->
+  <g transform="translate(400, 200)">
+    <!-- React原子标志 - 外环 -->
+    <ellipse cx="0" cy="0" rx="150" ry="60" fill="none" stroke="#2563EB" stroke-width="8" transform="rotate(30)" />
+    <ellipse cx="0" cy="0" rx="150" ry="60" fill="none" stroke="#2563EB" stroke-width="8" transform="rotate(90)" />
+    <ellipse cx="0" cy="0" rx="150" ry="60" fill="none" stroke="#2563EB" stroke-width="8" transform="rotate(150)" />
+    
+    <!-- 中心圆 -->
+    <circle cx="0" cy="0" r="35" fill="#2563EB" />
+    
+    <!-- 状态管理图标 - 连接框 -->
+    <rect x="-120" y="80" width="50" height="30" rx="5" fill="#3B82F6" />
+    <rect x="-20" y="80" width="50" height="30" rx="5" fill="#3B82F6" />
+    <rect x="80" y="80" width="50" height="30" rx="5" fill="#3B82F6" />
+    
+    <!-- 连接线 -->
+    <line x1="-95" y1="50" x2="-95" y2="80" stroke="#3B82F6" stroke-width="3" />
+    <line x1="5" y1="50" x2="5" y2="80" stroke="#3B82F6" stroke-width="3" />
+    <line x1="105" y1="50" x2="105" y2="80" stroke="#3B82F6" stroke-width="3" />
+    
+    <line x1="-95" y1="50" x2="105" y2="50" stroke="#3B82F6" stroke-width="3" />
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="120" cy="100" r="40" fill="#93C5FD" opacity="0.6" />
+  <circle cx="680" cy="300" r="50" fill="#93C5FD" opacity="0.6" />
+  
+  <!-- 装饰图形 -->
+  <rect x="100" y="300" width="70" height="30" rx="5" fill="#60A5FA" opacity="0.4" />
+  <rect x="650" y="80" width="70" height="30" rx="5" fill="#60A5FA" opacity="0.4" />
+  
+  <!-- 标题 - 可选 -->
+  <text x="400" y="350" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#2563EB">React状态管理策略</text>
+</svg> 

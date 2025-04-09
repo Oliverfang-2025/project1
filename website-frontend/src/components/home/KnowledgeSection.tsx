@@ -14,7 +14,7 @@ export default function KnowledgeSection() {
       category: '前端开发',
       readTime: 8,
       publishDate: '2023-05-15',
-      image: '/images/placeholder.png', // 实际开发中使用真实图片
+      image: '/images/article-cover1.svg',
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ export default function KnowledgeSection() {
       category: '后端开发',
       readTime: 12,
       publishDate: '2023-06-22',
-      image: '/images/placeholder.png',
+      image: '/images/article-cover2.svg',
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ export default function KnowledgeSection() {
       category: '前端开发',
       readTime: 10,
       publishDate: '2023-07-08',
-      image: '/images/placeholder.png',
+      image: '/images/article-cover3.svg',
     },
   ];
 
@@ -44,7 +44,7 @@ export default function KnowledgeSection() {
       category: '系统架构',
       price: 29.9,
       publishDate: '2023-04-10',
-      image: '/images/placeholder.png',
+      image: '/images/paid-article1.svg',
     },
     {
       id: 102,
@@ -53,7 +53,7 @@ export default function KnowledgeSection() {
       category: '系统架构',
       price: 39.9,
       publishDate: '2023-05-20',
-      image: '/images/placeholder.png',
+      image: '/images/paid-article2.svg',
     },
   ];
 
@@ -81,11 +81,13 @@ export default function KnowledgeSection() {
             {freeArticles.map((article) => (
               <div key={article.id} className="card overflow-hidden hover:shadow-lg transition">
                 <div className="w-full h-48 bg-gray-200 relative mb-4">
-                  {/* 使用占位图，实际开发时替换为真实图片 */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-blue-600 opacity-20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center text-primary font-bold">
-                    {article.category}
-                  </div>
+                  {/* 使用实际图片 */}
+                  <Image 
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 
                 <div className="flex items-center mb-2">
@@ -133,11 +135,13 @@ export default function KnowledgeSection() {
               <div key={article.id} className="flex bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                 {/* 缩略图 */}
                 <div className="w-1/3 bg-gray-200 relative">
-                  {/* 使用占位图，实际开发时替换为真实图片 */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-blue-600 opacity-20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center text-primary font-bold">
-                    {article.category}
-                  </div>
+                  {/* 使用实际图片 */}
+                  <Image 
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 
                 {/* 内容 */}

@@ -1,0 +1,39 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1200" height="600" fill="#F5F3FF" />
+  
+  <!-- 汽车和芯片的结合 -->
+  <g transform="translate(600, 300)">
+    <!-- 芯片元素 -->
+    <rect x="-200" y="-100" width="400" height="200" fill="#7C3AED" rx="10" />
+    <rect x="-180" y="-80" width="360" height="160" fill="#F5F3FF" rx="5" />
+    
+    <!-- 芯片上的电路 -->
+    <line x1="-150" y1="-60" x2="150" y2="-60" stroke="#7C3AED" stroke-width="4" />
+    <line x1="-150" y1="0" x2="150" y2="0" stroke="#7C3AED" stroke-width="4" />
+    <line x1="-150" y1="60" x2="150" y2="60" stroke="#7C3AED" stroke-width="4" />
+    
+    <line x1="-120" y1="-80" x2="-120" y2="80" stroke="#7C3AED" stroke-width="4" />
+    <line x1="-60" y1="-80" x2="-60" y2="80" stroke="#7C3AED" stroke-width="4" />
+    <line x1="0" y1="-80" x2="0" y2="80" stroke="#7C3AED" stroke-width="4" />
+    <line x1="60" y1="-80" x2="60" y2="80" stroke="#7C3AED" stroke-width="4" />
+    <line x1="120" y1="-80" x2="120" y2="80" stroke="#7C3AED" stroke-width="4" />
+    
+    <!-- 汽车轮廓 -->
+    <path d="M-300 40 C-280 0 -200 0 -150 40 L150 40 C200 0 280 0 300 40 L300 80 C300 100 280 120 240 120 L-240 120 C-280 120 -300 100 -300 80 Z" fill="#7C3AED" stroke="#5B21B6" stroke-width="4" />
+    
+    <!-- 轮子 -->
+    <circle cx="-200" cy="120" r="30" fill="#5B21B6" />
+    <circle cx="-200" cy="120" r="15" fill="#F5F3FF" />
+    
+    <circle cx="200" cy="120" r="30" fill="#5B21B6" />
+    <circle cx="200" cy="120" r="15" fill="#F5F3FF" />
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="150" cy="150" r="80" fill="#DDD6FE" opacity="0.6" />
+  <circle cx="1050" cy="450" r="80" fill="#DDD6FE" opacity="0.6" />
+  
+  <!-- 文字 - 可选 -->
+  <text x="600" y="550" font-family="Arial" font-size="40" font-weight="bold" text-anchor="middle" fill="#5B21B6">车规级芯片测试</text>
+</svg> 

@@ -1,0 +1,37 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#F0FDF4" />
+  
+  <!-- Node.js主题图案 -->
+  <g transform="translate(400, 200)">
+    <!-- Node.js六边形背景 -->
+    <path d="M150 0 L75 -130 L-75 -130 L-150 0 L-75 130 L75 130 Z" fill="#15803D" opacity="0.9" />
+    
+    <!-- 中央圆形 -->
+    <circle cx="0" cy="0" r="40" fill="white" />
+    
+    <!-- JS符号 -->
+    <text x="0" y="13" font-family="Arial" font-size="40" font-weight="bold" text-anchor="middle" fill="#15803D">JS</text>
+    
+    <!-- 性能指示图 -->
+    <path d="M-120 -50 L-80 -30 L-40 -70 L0 -45 L40 -20 L80 -60 L120 -20" stroke="white" stroke-width="4" fill="none" />
+    <circle cx="-120" cy="-50" r="5" fill="white" />
+    <circle cx="-80" cy="-30" r="5" fill="white" />
+    <circle cx="-40" cy="-70" r="5" fill="white" />
+    <circle cx="0" cy="-45" r="5" fill="white" />
+    <circle cx="40" cy="-20" r="5" fill="white" />
+    <circle cx="80" cy="-60" r="5" fill="white" />
+    <circle cx="120" cy="-20" r="5" fill="white" />
+  </g>
+  
+  <!-- 装饰元素 -->
+  <circle cx="150" cy="100" r="40" fill="#22C55E" opacity="0.6" />
+  <circle cx="650" cy="300" r="50" fill="#22C55E" opacity="0.6" />
+  
+  <!-- 装饰图形 -->
+  <rect x="120" y="250" width="80" height="40" rx="5" fill="#15803D" opacity="0.4" />
+  <rect x="600" y="110" width="60" height="60" rx="5" fill="#15803D" opacity="0.4" />
+  
+  <!-- 标题 - 可选 -->
+  <text x="400" y="350" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#15803D">Node.js性能优化指南</text>
+</svg> 

@@ -25,14 +25,13 @@ export default function AboutSection() {
               <div className="relative w-full h-full rounded-xl overflow-hidden bg-white">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative w-full h-full rounded-xl overflow-hidden">
-                    {/* 可以替换为真实的个人照片 */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-500 opacity-90"></div>
-                    <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-2xl">
-                      <span className="relative z-10">OF</span>
-                    </div>
-                    {/* 装饰元素 */}
-                    <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/20 rounded-full -mb-16 -mr-16"></div>
-                    <div className="absolute top-10 left-10 w-10 h-10 bg-white/30 rounded-full"></div>
+                    {/* 使用实际的个人头像 */}
+                    <Image
+                      src="/images/oliver-profile.svg"
+                      alt="Oliver Fang"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
               </div>
