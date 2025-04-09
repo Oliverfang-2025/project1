@@ -50,22 +50,34 @@ export default function AboutPage() {
   return (
     <div className="pt-24">
       {/* 顶部个人介绍 */}
-      <section className="py-16 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="container">
+      <section className="relative py-24">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-700 opacity-90"></div>
+        
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        {/* 装饰元素 - 右下角 */}
+        <div className="absolute bottom-10 right-10 opacity-70">
+          <div className="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 内容 */}
+        <div className="container relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-4 text-center">
               <div className="w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-xl">
-                <div className="w-full h-full bg-primary-800 flex items-center justify-center">
-                  <span className="text-6xl font-bold">OF</span>
+                <div className="w-full h-full bg-primary-800/50 backdrop-blur-md flex items-center justify-center">
+                  <span className="text-6xl font-bold text-white">OF</span>
                 </div>
               </div>
             </div>
             
-            <div className="md:col-span-8">
+            <div className="md:col-span-8 text-white">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Oliver Fang</h1>
-              <p className="text-xl font-light mb-8">生产部长 | 半导体/集成电路专家</p>
+              <p className="text-xl font-light mb-8 text-white/90">生产部长 | 半导体/集成电路专家</p>
               
-              <div className="space-y-4">
+              <div className="space-y-4 text-white/80">
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -101,12 +113,18 @@ export default function AboutPage() {
       </section>
 
       {/* 个人优势 */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
+      <section className="relative py-16">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/20 to-secondary-700/20 opacity-90"></div>
+        
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        <div className="container relative z-10">
           <h2 className="text-3xl font-bold text-center mb-12">个人优势</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="card p-8 hover-lift">
+            <div className="card p-8 hover-lift bg-white/80 backdrop-blur-sm shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -118,7 +136,7 @@ export default function AboutPage() {
               <p className="text-gray-600">熟练使用AI编程类Cursor，可开发web应用程序，已成功开发自动排产模块，成本模块</p>
             </div>
             
-            <div className="card p-8 hover-lift">
+            <div className="card p-8 hover-lift bg-white/80 backdrop-blur-sm shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,7 +148,7 @@ export default function AboutPage() {
               <p className="text-gray-600">拥有从0到1的测试厂建厂经验，对生产/设备/厂务/工程方面的日常管理，运行制度建立，岗位技能矩阵和工作负荷等管理方案拥有丰富的规划和执行落地经验</p>
             </div>
             
-            <div className="card p-8 hover-lift">
+            <div className="card p-8 hover-lift bg-white/80 backdrop-blur-sm shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -142,7 +160,7 @@ export default function AboutPage() {
               <p className="text-gray-600">拥有从1到1000+的外企生产运营管理相关经验。对生产运营管理紧密相关部门理解深刻，主导和协同作战能力强</p>
             </div>
             
-            <div className="card p-8 hover-lift">
+            <div className="card p-8 hover-lift bg-white/80 backdrop-blur-sm shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

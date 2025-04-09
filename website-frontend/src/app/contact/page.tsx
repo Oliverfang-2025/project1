@@ -111,10 +111,27 @@ export default function ContactPage() {
   return (
     <div className="pt-24">
       {/* 页面标题 */}
-      <section className="py-16 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="container text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">联系我</h1>
-          <p className="text-xl max-w-3xl mx-auto">如果您有任何问题或合作意向，欢迎随时与我联系</p>
+      <section className="relative py-24">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-700 opacity-90"></div>
+        
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        {/* 装饰元素 - 右下角 */}
+        <div className="absolute bottom-10 right-10 opacity-70">
+          <div className="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 装饰元素 - 左上角 */}
+        <div className="absolute top-10 left-10 opacity-70">
+          <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 内容 */}
+        <div className="container relative z-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">联系我</h1>
+          <p className="text-xl max-w-3xl mx-auto text-white/80">如果您有任何问题或合作意向，欢迎随时与我联系</p>
         </div>
       </section>
 
@@ -302,8 +319,14 @@ export default function ContactPage() {
       </section>
       
       {/* 关注公众号 */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container">
+      <section className="relative py-20">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/30 to-secondary-700/30 opacity-90"></div>
+        
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        <div className="container relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-10">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">关注我的微信公众号</h2>
@@ -311,7 +334,7 @@ export default function ContactPage() {
               <p className="text-lg text-gray-600">获取最新的半导体测试领域资讯和技术分享</p>
             </div>
             
-            <div className="bg-white p-8 rounded-2xl shadow-lg inline-block border border-gray-100 transform transition-transform hover:scale-105 duration-300">
+            <div className="bg-white p-8 rounded-2xl shadow-lg inline-block border border-gray-100 transform transition-transform hover:scale-105 duration-300 backdrop-blur-md">
               <div className="w-72 h-72 relative mb-5 overflow-hidden ring-2 ring-primary-100 rounded-xl flex items-center justify-center bg-white">
                 {/* 使用本地图片文件作为二维码 */}
                 <img 

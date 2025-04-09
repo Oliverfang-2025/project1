@@ -167,82 +167,104 @@ export default function KnowledgePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 mt-20">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">知识分享</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          分享我在半导体/集成电路行业的专业知识与实践经验，希望能够帮助到同行和对此感兴趣的朋友。
-        </p>
-      </div>
-
-      {/* 顶部操作栏 */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <SearchBar onSearch={handleSearch} placeholder="搜索知识内容..." />
+    <div className="mt-20">
+      {/* 现代风格标题区域 */}
+      <section className="relative py-24">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-700 opacity-90"></div>
         
-        <div className="flex items-center space-x-4">
-          <KnowledgeSorter 
-            sortBy={sortBy}
-            onSortChange={handleSortChange}
-          />
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        {/* 装饰元素 - 右下角 */}
+        <div className="absolute bottom-10 right-10 opacity-70">
+          <div className="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 装饰元素 - 左上角 */}
+        <div className="absolute top-10 left-10 opacity-70">
+          <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 内容 */}
+        <div className="container relative z-10 mx-auto px-4 text-center text-white">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">知识分享</h1>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            分享我在半导体/集成电路行业的专业知识与实践经验，希望能够帮助到同行和对此感兴趣的朋友。
+          </p>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 py-12">
+        {/* 顶部操作栏 */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+          <SearchBar onSearch={handleSearch} placeholder="搜索知识内容..." />
           
-          <Link 
-            href="/knowledge/new" 
-            className="px-4 py-2 rounded-md text-white bg-primary-600 hover:bg-primary-700 transition shadow-sm font-medium"
-          >
-            分享新知识
-          </Link>
+          <div className="flex items-center space-x-4">
+            <KnowledgeSorter 
+              sortBy={sortBy}
+              onSortChange={handleSortChange}
+            />
+            
+            <Link 
+              href="/knowledge/new" 
+              className="px-4 py-2 rounded-md text-white bg-primary-600 hover:bg-primary-700 transition shadow-sm font-medium"
+            >
+              分享新知识
+            </Link>
+          </div>
         </div>
-      </div>
 
-      {/* 过滤器和内容区 */}
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* 左侧过滤器 */}
-        <div className="lg:w-1/4">
-          <KnowledgeFilter 
-            categories={categories}
-            tags={tags}
-            activeCategory={activeCategory}
-            activeTags={activeTags}
-            onCategoryChange={handleCategoryChange}
-            onTagToggle={handleTagToggle}
-          />
-        </div>
-        
-        {/* 右侧内容区 */}
-        <div className="lg:w-3/4">
-          <Tabs defaultActiveKey="all" items={typeOptions.map(option => ({
-            key: option.key,
-            label: option.tab,
-            children: (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredItems
-                  .filter(item => option.key === 'all' || item.type === option.key)
-                  .map(item => (
-                    <KnowledgeCard 
-                      key={item.id} 
-                      item={item} 
-                    />
-                  ))
-                }
+        {/* 过滤器和内容区 */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* 左侧过滤器 */}
+          <div className="lg:w-1/4">
+            <KnowledgeFilter 
+              categories={categories}
+              tags={tags}
+              activeCategory={activeCategory}
+              activeTags={activeTags}
+              onCategoryChange={handleCategoryChange}
+              onTagToggle={handleTagToggle}
+            />
+          </div>
+          
+          {/* 右侧内容区 */}
+          <div className="lg:w-3/4">
+            <Tabs defaultActiveKey="all" items={typeOptions.map(option => ({
+              key: option.key,
+              label: option.tab,
+              children: (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {filteredItems
+                    .filter(item => option.key === 'all' || item.type === option.key)
+                    .map(item => (
+                      <KnowledgeCard 
+                        key={item.id} 
+                        item={item} 
+                      />
+                    ))
+                  }
+                </div>
+              ),
+            }))} />
+            
+            {filteredItems.length === 0 && (
+              <div className="text-center py-20">
+                <p className="text-gray-500 text-xl">没有找到相关知识内容</p>
+                <button 
+                  className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition shadow-sm font-medium"
+                  onClick={() => {
+                    setActiveCategory('all');
+                    setActiveTags([]);
+                    setSearchQuery('');
+                  }}
+                >
+                  清除所有过滤器
+                </button>
               </div>
-            ),
-          }))} />
-          
-          {filteredItems.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-gray-500 text-xl">没有找到相关知识内容</p>
-              <button 
-                className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition shadow-sm font-medium"
-                onClick={() => {
-                  setActiveCategory('all');
-                  setActiveTags([]);
-                  setSearchQuery('');
-                }}
-              >
-                清除所有过滤器
-              </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

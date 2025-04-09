@@ -68,10 +68,27 @@ export default function PlansPage() {
   return (
     <div className="pt-24">
       {/* 页面标题 */}
-      <section className="py-16 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="container text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">我的职业计划</h1>
-          <p className="text-xl max-w-3xl mx-auto">记录发展目标和进步历程，保持前进的动力</p>
+      <section className="relative py-24">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-700 opacity-90"></div>
+        
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        {/* 装饰元素 - 右下角 */}
+        <div className="absolute bottom-10 right-10 opacity-70">
+          <div className="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 装饰元素 - 左上角 */}
+        <div className="absolute top-10 left-10 opacity-70">
+          <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md"></div>
+        </div>
+        
+        {/* 内容 */}
+        <div className="container relative z-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">我的职业计划</h1>
+          <p className="text-xl max-w-3xl mx-auto text-white/80">记录发展目标和进步历程，保持前进的动力</p>
         </div>
       </section>
 
@@ -112,13 +129,19 @@ export default function PlansPage() {
       </section>
 
       {/* 个人发展目标 */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
+      <section className="relative py-16">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/20 to-secondary-700/20 opacity-90"></div>
+        
+        {/* 背景图案 */}
+        <div className="absolute inset-0 opacity-5 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+        
+        <div className="container relative z-10">
           <h2 className="text-3xl font-bold text-center mb-12">个人发展目标</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {personalGoals.map((goal, index) => (
-              <div key={index} className="card p-8 hover-lift">
+              <div key={index} className="card p-8 hover-lift bg-white/80 backdrop-blur-sm shadow-lg">
                 <div className="flex items-center mb-4">
                   <div className="text-4xl mr-4">{goal.icon}</div>
                   <h3 className="text-xl font-bold text-gray-900">{goal.title}</h3>
