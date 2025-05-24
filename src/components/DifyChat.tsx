@@ -2,6 +2,26 @@
 
 import React, { useEffect, useRef } from 'react';
 
+// Dify配置信息
+// 注意：当您在Dify平台上更新机器人设置后，可能需要清除浏览器缓存或强制刷新页面
+// 如果更改了token或serverUrl，需要更新以下常量并重新部署网站
+const DIFY_CONFIG = {
+  token: 'uluSs0xDCF8cY734',
+  serverUrl: 'https://udify.app',
+  systemVariables: {},
+};
+
+// 自定义样式设置
+const CUSTOM_STYLES = `
+  #dify-chatbot-bubble-button {
+    background-color: #1C64F2 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 36rem !important;
+  }
+`;
+
 const DifyChat = () => {
   const scriptLoaded = useRef(false);
 
@@ -10,27 +30,15 @@ const DifyChat = () => {
     
     // 添加自定义样式
     const style = document.createElement('style');
-    style.innerHTML = `
-      #dify-chatbot-bubble-button {
-        background-color: #1C64F2 !important;
-      }
-      #dify-chatbot-bubble-window {
-        width: 24rem !important;
-        height: 36rem !important;
-      }
-    `;
+    style.innerHTML = CUSTOM_STYLES;
     document.head.appendChild(style);
 
     // 配置Dify
-    window.difyChatbotConfig = {
-      token: 'uluSs0xDCF8cY734',
-      serverUrl: 'https://udify.app',
-      systemVariables: {},
-    };
+    window.difyChatbotConfig = DIFY_CONFIG;
 
     // 加载Dify脚本
     const script = document.createElement('script');
-    script.src = "https://udify.app/embed.min.js";
+    script.src = `${DIFY_CONFIG.serverUrl}/embed.min.js`;
     script.id = "dify-script";
     script.async = true;
     script.defer = true;
