@@ -9,10 +9,8 @@ const DIFY_CONFIG = {
   token: 'uluSs0xDCF8cY734',
   serverUrl: 'https://udify.app',
   systemVariables: {},
-  botName: 'of的AI助手',
-  chatTitle: 'of的AI助手',
-  name: 'of的AI助手',
-  title: 'of的AI助手',
+  // 不要手动设置botName，使用Dify平台设置的名称
+  // 以下参数将从Dify平台获取：名称、头像、问候语等
 };
 
 // 自定义样式设置
@@ -25,18 +23,6 @@ const CUSTOM_STYLES = `
     min-height: 36rem !important;
     resize: both !important;
     overflow: auto !important;
-  }
-  
-  /* 尝试使用CSS直接修改聊天窗口的标题 */
-  .dify-chatbot-window-header-title {
-    visibility: hidden; /* 隐藏原始标题 */
-  }
-  
-  .dify-chatbot-window-header-title::after {
-    content: 'of的AI助手';
-    visibility: visible;
-    position: absolute;
-    left: 0;
   }
 `;
 
@@ -84,10 +70,6 @@ declare global {
       token: string;
       serverUrl?: string;
       systemVariables: Record<string, any>;
-      botName?: string;
-      chatTitle?: string;
-      name?: string;
-      title?: string;
     };
   }
 }
