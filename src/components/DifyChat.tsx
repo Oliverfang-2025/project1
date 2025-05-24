@@ -6,9 +6,13 @@ import React, { useEffect, useRef } from 'react';
 // 注意：当您在Dify平台上更新机器人设置后，可能需要清除浏览器缓存或强制刷新页面
 // 如果更改了token或serverUrl，需要更新以下常量并重新部署网站
 const DIFY_CONFIG = {
-  token: 'uluSs0xDCF8cY734',
-  serverUrl: 'https://udify.app',
-  systemVariables: {},
+  token: 'uluSs0xDCF8cY734', // 替换为你从Dify平台获取的新chatflow的API密钥
+  serverUrl: 'https://udify.app', // 确认这是正确的API基础URL，如有变更请更新
+  systemVariables: {
+    // 如果你的chatflow使用了系统变量，可以在这里添加
+    // 例如：user_id: '用户ID',
+    // 例如：user_name: '用户名称',
+  },
   // 不要手动设置botName，使用Dify平台设置的名称
   // 以下参数将从Dify平台获取：名称、头像、问候语等
 };
