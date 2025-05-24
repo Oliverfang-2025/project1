@@ -9,6 +9,7 @@ const DIFY_CONFIG = {
   token: 'uluSs0xDCF8cY734',
   serverUrl: 'https://udify.app',
   systemVariables: {},
+  botName: 'of的AI助手',
 };
 
 // 自定义样式设置
@@ -17,8 +18,10 @@ const CUSTOM_STYLES = `
     background-color: #1C64F2 !important;
   }
   #dify-chatbot-bubble-window {
-    width: 24rem !important;
-    height: 36rem !important;
+    min-width: 24rem !important;
+    min-height: 36rem !important;
+    resize: both !important;
+    overflow: auto !important;
   }
 `;
 
@@ -66,6 +69,7 @@ declare global {
       token: string;
       serverUrl?: string;
       systemVariables: Record<string, any>;
+      botName?: string;
     };
   }
 }
