@@ -1,40 +1,24 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Interest } from '@/types/interest';
+import { getInterests } from '@/lib/interest-storage';
 
 export default function InterestSection() {
-  // 示例兴趣爱好数据，实际开发中可从API获取
-  const interests = [
-    {
-      id: 1,
-      name: '摄影',
-      description: '捕捉生活中美好的瞬间，记录旅行见闻',
-      imageUrl: '/images/placeholder.png', // 实际开发中使用真实图片
-      category: '艺术',
-    },
-    {
-      id: 2,
-      name: '阅读',
-      description: '探索书籍中的知识和故事，扩展视野',
-      imageUrl: '/images/placeholder.png',
-      category: '文化',
-    },
-    {
-      id: 3,
-      name: '烹饪',
-      description: '尝试各种美食制作，享受烹饪的乐趣',
-      imageUrl: '/images/placeholder.png',
-      category: '生活',
-    },
-    {
-      id: 4,
-      name: '旅行',
-      description: '探索世界各地的风景和文化',
-      imageUrl: '/images/placeholder.png',
-      category: '探索',
-    },
-  ];
+  const [interests, setInterests] = useState([] as Interest[]);
+  const [loading, setLoading] = useState(true);
+
+  // Load interests from localStorage on mount
+  useEffect(() => {
+    const loadInterests = () => {
+      const data = getInterests();
+      setInterests(data);
+      setLoading(false);
+    };
+
+    loadInterests();
+  }, []);
 
   return (
     <section id="interests" className="py-12 bg-gradient-to-b from-white to-neutral">
@@ -45,16 +29,28 @@ export default function InterestSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {interests.map((interest) => (
-            <div key={interest.id} className="flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-              {/* 图片部分 */}
-              <div className="md:w-1/3 h-48 md:h-auto bg-gray-200 relative">
-                {/* 使用占位图，实际开发时替换为真实图片 */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-blue-600 opacity-20"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-primary font-bold text-xl">{interest.name}</span>
+          {loading ? (
+            <div className="col-span-2 text-center text-gray-500 py-8">
+              加载中...
+            </div>
+          ) : interests.length === 0 ? (
+            <div className="col-span-2 text-center text-gray-500 py-8">
+              暂无兴趣爱好数据
+            </div>
+          ) : (
+            interests.map((interest) => (
+              <div key={interest.id} className="flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                {/* 图标/图片部分 */}
+                <div className="md:w-1/3 h-48 md:h-auto bg-gray-200 relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-blue-600 opacity-20"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {interest.icon ? (
+                      <span className="text-6xl">{interest.icon}</span>
+                    ) : (
+                      <span className="text-primary font-bold text-xl">{interest.name}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
               
               {/* 内容部分 */}
               <div className="p-6 md:w-2/3">
@@ -75,7 +71,8 @@ export default function InterestSection() {
                 </Link>
               </div>
             </div>
-          ))}
+            ))
+          )}
         </div>
 
         <div className="text-center mt-10">

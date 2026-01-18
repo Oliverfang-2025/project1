@@ -53,7 +53,11 @@ export default function AdminLayout({
     { name: '消息管理', path: '/admin/messages', icon: 'mail' },
     { name: '页面内容', path: '/admin/pages', icon: 'document' },
     { name: '首页板块', path: '/admin/sections', icon: 'layout' },
+    { name: '关于页面', path: '/admin/about', icon: 'user' },
     { name: '知识管理', path: '/admin/knowledge', icon: 'book' },
+    { name: '计划管理', path: '/admin/plans', icon: 'calendar' },
+    { name: '时间线管理', path: '/admin/timeline', icon: 'clock' },
+    { name: '导航管理', path: '/admin/navigation', icon: 'link' },
     { name: '社交媒体', path: '/admin/social', icon: 'share' },
     { name: '联系方式', path: '/admin/contact-info', icon: 'phone' },
   ];
@@ -109,6 +113,30 @@ export default function AdminLayout({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
         );
+      case 'link':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          </svg>
+        );
+      case 'clock':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        );
+      case 'calendar':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        );
+      case 'user':
+        return (
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        );
       default:
         return null;
     }
@@ -156,16 +184,16 @@ export default function AdminLayout({
       </div>
       
       {/* 主要内容区域 */}
-      <div className="flex-1 overflow-auto">
-        <header className="bg-white shadow">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="bg-white shadow flex-shrink-0 z-10">
           <div className="px-6 py-4">
             <h2 className="text-xl font-semibold text-gray-800">
               {navItems.find(item => item.path === pathname)?.name || '管理面板'}
             </h2>
           </div>
         </header>
-        
-        <main className="p-6">
+
+        <main className="flex-1 overflow-auto p-6">
           {children}
         </main>
       </div>

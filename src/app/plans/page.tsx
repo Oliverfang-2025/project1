@@ -1,45 +1,19 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Plan } from '@/types/plan';
+import { getPlans } from '@/lib/plan-storage';
 
 export default function PlansPage() {
-  // 职业计划数据
-  const careerPlans = [
-    {
-      title: "高级计划排产系统开发",
-      timeline: "2024年10月 - 持续进行中",
-      description: "利用AI编程工具cursor开发高级计划排产工具APS系统，解决工厂多批次多工序多机台的复杂排产需求。",
-      goals: [
-        "完成订单管理模块，实现订单自动分配",
-        "开发资源管理模块，优化机台利用率",
-        "设计产能预估模块，提供决策支持",
-        "完善用户权限管理模块，确保数据安全"
-      ]
-    },
-    {
-      title: "IT化系统完善",
-      timeline: "2024年 - 2025年",
-      description: "进一步完善和整合企业IT系统，包括SAP/MES/ERP等系统的协同工作，提高生产效率和降低成本。",
-      goals: [
-        "实现SAP与MES系统的无缝对接",
-        "建立完整的数据分析和可视化平台",
-        "开发自动化报表和预警系统",
-        "提升系统整体安全性和稳定性"
-      ]
-    },
-    {
-      title: "精益生产管理",
-      timeline: "2025年 - 2026年",
-      description: "引入精益生产管理模式，持续优化生产流程，降低废品率，提高生产效率。",
-      goals: [
-        "建立全面的精益管理体系",
-        "实现年度降本增效目标",
-        "优化工作流程，减少浪费",
-        "提升整体生产效率和质量"
-      ]
-    }
-  ];
+  const [plans, setPlans] = useState([] as Plan[]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const storedPlans = getPlans();
+    setPlans(storedPlans);
+    setLoading(false);
+  }, []);
 
   // 个人发展目标
   const personalGoals = [
@@ -79,35 +53,55 @@ export default function PlansPage() {
       <section className="py-16">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">职业发展计划</h2>
-          
-          <div className="space-y-12 max-w-4xl mx-auto">
-            {careerPlans.map((plan, index) => (
-              <div key={index} className="card p-8">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900">{plan.title}</h3>
-                  <span className="inline-block mt-2 md:mt-0 px-4 py-1 bg-primary-100 text-primary-700 rounded-full font-medium">
-                    {plan.timeline}
-                  </span>
+
+          {loading ? (
+            <div className="space-y-12 max-w-4xl mx-auto">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="card p-8 animate-pulse">
+                  <div className="h-8 bg-gray-200 rounded w-1/2 mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                 </div>
-                
-                <p className="text-gray-600 mb-6">{plan.description}</p>
-                
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-800 mb-3">具体目标：</h4>
-                  <ul className="space-y-2">
-                    {plan.goals.map((goal, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <svg className="w-5 h-5 text-primary-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{goal}</span>
-                      </li>
-                    ))}
-                  </ul>
+              ))}
+            </div>
+          ) : plans.length > 0 ? (
+            <div className="space-y-12 max-w-4xl mx-auto">
+              {plans.map((plan) => (
+                <div key={plan.id} className="card p-8">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                    <div className="flex-1">
+                      <div className="mb-2">
+                        <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary bg-opacity-10 text-primary">
+                          {plan.category}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900">{plan.title}</h3>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-600 mb-6">{plan.description}</p>
+
+                  {/* 进度条 */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="font-semibold text-gray-800">完成进度</span>
+                      <span className="font-semibold text-primary-600">{plan.progress}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className="bg-primary-600 h-3 rounded-full transition-all duration-300"
+                        style={{ width: `${plan.progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-gray-500 py-12">
+              <p>暂无计划数据</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -134,111 +128,110 @@ export default function PlansPage() {
       <section className="py-16">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">计划进度跟踪</h2>
-          
-          <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* 时间线 */}
-              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-primary-200"></div>
-              
-              <div className="space-y-12">
-                {/* 已完成项目 */}
-                <div className="relative flex flex-col md:flex-row items-center">
-                  <div className="flex-1 md:text-right md:pr-8 mb-4 md:mb-0">
-                    <div className="bg-white p-6 rounded-lg shadow-md md:ml-auto md:mr-0 hover-lift">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">车规级芯片测试建厂项目</h3>
-                      <p className="text-gray-600 mb-2">2022年7月 - 2024年6月</p>
-                      <div className="flex items-center md:justify-end text-green-600">
-                        <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span>已完成</span>
-                      </div>
+
+          {loading ? (
+            <div className="max-w-4xl mx-auto">
+              <div className="space-y-8">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="flex items-center space-x-4 animate-pulse">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                    <div className="flex-1">
+                      <div className="h-5 bg-gray-200 rounded w-1/3 mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                     </div>
                   </div>
-                  
-                  <div className="z-10 flex items-center justify-center w-8 h-8 bg-primary-600 rounded-full md:mx-0">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  
-                  <div className="flex-1 md:pl-8 hidden md:block"></div>
-                </div>
-                
-                {/* 进行中项目 */}
-                <div className="relative flex flex-col md:flex-row items-center">
-                  <div className="flex-1 md:text-right md:pr-8 hidden md:block"></div>
-                  
-                  <div className="z-10 flex items-center justify-center w-8 h-8 bg-primary-600 rounded-full md:mx-0">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  
-                  <div className="flex-1 md:pl-8 mb-4 md:mb-0">
-                    <div className="bg-white p-6 rounded-lg shadow-md md:mr-auto md:ml-0 hover-lift">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">高级计划排产系统开发</h3>
-                      <p className="text-gray-600 mb-2">2024年10月 - 至今</p>
-                      <div className="flex items-center text-blue-600">
-                        <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>进行中 - 完成60%</span>
+                ))}
+              </div>
+            </div>
+          ) : plans.length > 0 ? (
+            <div className="max-w-4xl mx-auto">
+              <div className="relative">
+                {/* 时间线 */}
+                <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-primary-200"></div>
+
+                <div className="space-y-12">
+                  {plans.map((plan, index) => {
+                    const isLeft = index % 2 === 0;
+                    const statusColor = plan.progress === 100 ? 'bg-green-600' : plan.progress > 0 ? 'bg-primary-600' : 'bg-gray-400';
+
+                    return (
+                      <div key={plan.id} className="relative flex flex-col md:flex-row items-center">
+                        {isLeft ? (
+                          <>
+                            <div className="flex-1 md:text-right md:pr-8 mb-4 md:mb-0">
+                              <div className="bg-white p-6 rounded-lg shadow-md md:ml-auto md:mr-0 hover-lift">
+                                <div className="mb-2">
+                                  <span className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-primary bg-opacity-10 text-primary">
+                                    {plan.category}
+                                  </span>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.title}</h3>
+                                <p className="text-gray-600 mb-2">{plan.description}</p>
+                                <div className={`flex items-center md:justify-end ${plan.progress === 100 ? 'text-green-600' : plan.progress > 0 ? 'text-blue-600' : 'text-gray-600'}`}>
+                                  <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {plan.progress === 100 ? (
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                    ) : (
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    )}
+                                  </svg>
+                                  <span>{plan.progress === 100 ? '已完成' : plan.progress > 0 ? `进行中 - ${plan.progress}%` : '计划中'}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className={`z-10 flex items-center justify-center w-8 h-8 ${statusColor} rounded-full md:mx-0`}>
+                              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={plan.progress === 100 ? "M5 13l4 4L19 7" : "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"} />
+                              </svg>
+                            </div>
+
+                            <div className="flex-1 md:pl-8 hidden md:block"></div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="flex-1 md:text-right md:pr-8 hidden md:block"></div>
+
+                            <div className={`z-10 flex items-center justify-center w-8 h-8 ${statusColor} rounded-full md:mx-0`}>
+                              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={plan.progress === 100 ? "M5 13l4 4L19 7" : "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"} />
+                              </svg>
+                            </div>
+
+                            <div className="flex-1 md:pl-8 mb-4 md:mb-0">
+                              <div className="bg-white p-6 rounded-lg shadow-md md:mr-auto md:ml-0 hover-lift">
+                                <div className="mb-2">
+                                  <span className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-primary bg-opacity-10 text-primary">
+                                    {plan.category}
+                                  </span>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.title}</h3>
+                                <p className="text-gray-600 mb-2">{plan.description}</p>
+                                <div className={`flex items-center ${plan.progress === 100 ? 'text-green-600' : plan.progress > 0 ? 'text-blue-600' : 'text-gray-600'}`}>
+                                  <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {plan.progress === 100 ? (
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                    ) : (
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    )}
+                                  </svg>
+                                  <span>{plan.progress === 100 ? '已完成' : plan.progress > 0 ? `进行中 - ${plan.progress}%` : '计划中'}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )}
                       </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* 计划中项目 */}
-                <div className="relative flex flex-col md:flex-row items-center">
-                  <div className="flex-1 md:text-right md:pr-8 mb-4 md:mb-0">
-                    <div className="bg-white p-6 rounded-lg shadow-md md:ml-auto md:mr-0 hover-lift">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">IT化系统完善</h3>
-                      <p className="text-gray-600 mb-2">2024年 - 2025年</p>
-                      <div className="flex items-center md:justify-end text-gray-600">
-                        <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <span>计划中</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="z-10 flex items-center justify-center w-8 h-8 bg-gray-400 rounded-full md:mx-0">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                  </div>
-                  
-                  <div className="flex-1 md:pl-8 hidden md:block"></div>
-                </div>
-                
-                {/* 计划中项目 */}
-                <div className="relative flex flex-col md:flex-row items-center">
-                  <div className="flex-1 md:text-right md:pr-8 hidden md:block"></div>
-                  
-                  <div className="z-10 flex items-center justify-center w-8 h-8 bg-gray-400 rounded-full md:mx-0">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                  </div>
-                  
-                  <div className="flex-1 md:pl-8 mb-4 md:mb-0">
-                    <div className="bg-white p-6 rounded-lg shadow-md md:mr-auto md:ml-0 hover-lift">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">精益生产管理</h3>
-                      <p className="text-gray-600 mb-2">2025年 - 2026年</p>
-                      <div className="flex items-center text-gray-600">
-                        <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <span>计划中</span>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="text-center text-gray-500 py-12">
+              <p>暂无计划数据</p>
+            </div>
+          )}
         </div>
       </section>
       

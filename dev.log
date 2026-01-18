@@ -1,0 +1,11 @@
+
+> personal-website-frontend@0.1.0 dev
+> npx next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+  ▲ Next.js 14.2.26
+  - Local:        http://localhost:3001
+
+ ✓ Starting...
+ ✓ Ready in 1448ms
+[?25h

@@ -3,10 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { getNavItems, initializeDefaultNavItems } from '@/lib/nav-storage';
+import { NavItem } from '@/types/nav';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [navLinks, setNavLinks] = useState([] as NavItem[]);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -22,17 +25,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Load navigation items from localStorage
+  useEffect(() => {
+    // Initialize default items if none exist
+    initializeDefaultNavItems();
+    // Load navigation items
+    const items = getNavItems();
+    // Filter visible items only
+    const visibleItems = items.filter(item => item.visible);
+    setNavLinks(visibleItems);
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const navLinks = [
-    { name: '首页', href: '/' },
-    { name: '关于我', href: '/about' },
-    { name: '职业规划', href: '/plans' },
-    { name: '知识分享', href: '/knowledge' },
-    { name: '联系方式', href: '/contact' },
-  ];
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
@@ -47,7 +53,7 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-8">
             {navLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.id}
                 href={link.href}
                 className={`
                   ${pathname === link.href ? 'font-medium' : 'font-normal'}
@@ -55,7 +61,7 @@ export default function Navbar() {
                   transition-colors duration-200
                 `}
               >
-                {link.name}
+                {link.label}
               </Link>
             ))}
           </div>
@@ -87,7 +93,7 @@ export default function Navbar() {
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.id}
                 href={link.href}
                 className={`
                   ${pathname === link.href ? 'font-medium' : 'font-normal'}
@@ -96,7 +102,7 @@ export default function Navbar() {
                 `}
                 onClick={() => setIsMenuOpen(false)}
               >
-                {link.name}
+                {link.label}
               </Link>
             ))}
           </div>

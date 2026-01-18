@@ -7,8 +7,8 @@ import { getFreeArticles, getPaidArticles } from '@/lib/knowledge-storage';
 import { Article } from '@/types/knowledge';
 
 export default function KnowledgeSection() {
-  const [freeArticles, setFreeArticles] = useState<Article[]>([]);
-  const [paidArticles, setPaidArticles] = useState<Article[]>([]);
+  const [freeArticles, setFreeArticles] = useState([] as Article[]);
+  const [paidArticles, setPaidArticles] = useState([] as Article[]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

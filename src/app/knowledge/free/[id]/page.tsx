@@ -8,7 +8,7 @@ import { Article } from '@/types/knowledge';
 
 export default function FreeArticlePage() {
   const params = useParams();
-  const [article, setArticle] = useState<Article | null>(null);
+  const [article, setArticle] = useState(null as Article | null);
 
   useEffect(() => {
     const id = Array.isArray(params.id) ? params.id[0] : params.id;

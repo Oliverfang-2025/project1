@@ -9,7 +9,7 @@ import { SectionConfig } from '@/types/section-config';
 import { DEFAULT_SECTIONS } from '@/types/section-config';
 
 export default function Home() {
-  const [visibleSections, setVisibleSections] = useState<SectionConfig[]>(DEFAULT_SECTIONS);
+  const [visibleSections, setVisibleSections] = useState(DEFAULT_SECTIONS as SectionConfig[]);
   const [mounted, setMounted] = useState(false);
 
   // Load sections config only on client side

@@ -13,10 +13,10 @@ type TabType = 'all' | 'free' | 'paid';
 type ModalMode = 'create' | 'edit' | null;
 
 export default function KnowledgeManagementPage() {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [activeTab, setActiveTab] = useState<TabType>('all');
-  const [modalMode, setModalMode] = useState<ModalMode>(null);
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [articles, setArticles] = useState([] as Article[]);
+  const [activeTab, setActiveTab] = useState('all' as TabType);
+  const [modalMode, setModalMode] = useState(null as ModalMode);
+  const [selectedArticle, setSelectedArticle] = useState(null as Article | null);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Load articles
@@ -243,7 +243,7 @@ function ArticleModal({
     publishDate: article?.publishDate || new Date().toISOString().split('T')[0],
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     onSave(formData);
   };

@@ -56,7 +56,9 @@ const DifyChat = () => {
 
     // 清理函数
     return () => {
-      document.head.removeChild(style);
+      if (style && style.parentNode) {
+        style.parentNode.removeChild(style);
+      }
       const scriptToRemove = document.getElementById("dify-script");
       if (scriptToRemove && scriptToRemove.parentNode) {
         scriptToRemove.parentNode.removeChild(scriptToRemove);

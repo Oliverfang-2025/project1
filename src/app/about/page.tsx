@@ -1,51 +1,57 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getPageById } from '@/lib/page-storage';
+import { getSkills, getExperiences, getEducations } from '@/lib/about-storage';
+import { Skill, Experience, Education } from '@/types/about';
 
 export default function AboutPage() {
-  // 专业技能数据
-  const skills = [
-    { name: "半导体生产管理", level: 95 },
-    { name: "测试厂建设规划", level: 90 },
-    { name: "IATF16949体系", level: 85 },
-    { name: "AI编程", level: 80 },
-    { name: "IT系统规划与管理", level: 85 },
-    { name: "Office软件应用", level: 95 },
-  ];
+  const [pageData, setPageData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [skills, setSkills] = useState([] as Skill[]);
+  const [experiences, setExperiences] = useState([] as Experience[]);
+  const [educations, setEducations] = useState([] as Education[]);
 
-  // 工作经历数据
-  const workExperience = [
-    {
-      company: "无锡市宜欣科技有限公司",
-      position: "生产部长",
-      period: "2022年7月 - 至今",
-      description: "主导车间建厂过程管理，设备选型和管理，体系建设，IT化系统建设，生产管理与运营，以及团队建设。成功建立车规级芯片FT测试和CP测试能力，通过IATF16949认证，实现月产值300万+。"
-    },
-    {
-      company: "成都芯源系统有限公司",
-      position: "生产技术培训体系负责人",
-      period: "2010年7月 - 2022年7月",
-      description: "12年生产运营管理经验，历任产线技术员、STR技术工程师、制造部培训负责人，积累1000+小时培训经历，负责生产运营部所有一线岗位的培训和考核体系课程开发执行。"
-    }
-  ];
+  // 从localStorage读取页面配置
+  useEffect(() => {
+    const loadPageData = () => {
+      const aboutPage = getPageById('about');
+      setPageData(aboutPage);
+      setSkills(getSkills());
+      setExperiences(getExperiences());
+      setEducations(getEducations());
+      setLoading(false);
+    };
 
-  // 教育背景数据
-  const education = [
-    {
-      school: "四川大学",
-      degree: "本科",
-      major: "人力资源管理（工商管理类）",
-      period: "2018年9月 - 2020年6月"
-    },
-    {
-      school: "成都工业学院",
-      degree: "大专",
-      major: "机械电子工程",
-      period: "2007年9月 - 2010年6月"
-    }
-  ];
+    loadPageData();
+
+    // 监听localStorage变化（后台修改后刷新可见）
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'website_pages' || e.key === 'about_skills' || e.key === 'about_experiences' || e.key === 'about_educations') {
+        loadPageData();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // 从配置中获取联系信息
+  const contactInfo = pageData?.sections?.find((s: any) => s.type === 'contact')?.content || {
+    phone: '13679041859',
+    email: '6358000070@qq.com',
+    location: '现居成都-郫都区'
+  };
+
+  if (loading) {
+    return (
+      <div className="pt-24 flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24">
@@ -60,11 +66,11 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="md:col-span-8">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Oliver Fang</h1>
               <p className="text-xl font-light mb-8">生产部长 | 半导体/集成电路专家</p>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,27 +78,27 @@ export default function AboutPage() {
                   </svg>
                   <span>男 | 36岁（1988/10）| 15年工作经验</span>
                 </div>
-                
+
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span>13679041859</span>
+                  <span>{contactInfo.phone}</span>
                 </div>
-                
+
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span>6358000070@qq.com</span>
+                  <span>{contactInfo.email}</span>
                 </div>
-                
+
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>现居成都-郫都区</span>
+                  <span>{contactInfo.location}</span>
                 </div>
               </div>
             </div>
@@ -104,7 +110,7 @@ export default function AboutPage() {
       <section className="py-16 bg-gray-50">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">个人优势</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="card p-8 hover-lift">
               <div className="flex items-center mb-4">
@@ -117,7 +123,7 @@ export default function AboutPage() {
               </div>
               <p className="text-gray-600">熟练使用AI编程类Cursor，可开发web应用程序，已成功开发自动排产模块，成本模块</p>
             </div>
-            
+
             <div className="card p-8 hover-lift">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
@@ -129,7 +135,7 @@ export default function AboutPage() {
               </div>
               <p className="text-gray-600">拥有从0到1的测试厂建厂经验，对生产/设备/厂务/工程方面的日常管理，运行制度建立，岗位技能矩阵和工作负荷等管理方案拥有丰富的规划和执行落地经验</p>
             </div>
-            
+
             <div className="card p-8 hover-lift">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
@@ -141,7 +147,7 @@ export default function AboutPage() {
               </div>
               <p className="text-gray-600">拥有从1到1000+的外企生产运营管理相关经验。对生产运营管理紧密相关部门理解深刻，主导和协同作战能力强</p>
             </div>
-            
+
             <div className="card p-8 hover-lift">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 flex-shrink-0 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 mr-4">
@@ -161,17 +167,17 @@ export default function AboutPage() {
       <section className="py-16">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">专业技能</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {skills.map((skill, index) => (
-              <div key={index} className="mb-6">
+            {skills.map((skill) => (
+              <div key={skill.id} className="mb-6">
                 <div className="flex justify-between mb-2">
                   <span className="font-medium text-gray-800">{skill.name}</span>
                   <span className="text-gray-600">{skill.level}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-primary-600 h-2 rounded-full" 
+                  <div
+                    className="bg-primary-600 h-2 rounded-full"
                     style={{ width: `${skill.level}%` }}
                   ></div>
                 </div>
@@ -185,15 +191,15 @@ export default function AboutPage() {
       <section className="py-16 bg-gray-50">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">工作经历</h2>
-          
+
           <div className="space-y-8 max-w-4xl mx-auto">
-            {workExperience.map((exp, index) => (
-              <div key={index} className="card p-8">
+            {experiences.map((exp) => (
+              <div key={exp.id} className="card p-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                   <h3 className="text-xl font-bold text-gray-900">{exp.company}</h3>
                   <span className="text-primary-600 font-medium">{exp.period}</span>
                 </div>
-                <p className="text-lg font-semibold text-gray-700 mb-4">{exp.position}</p>
+                <p className="text-lg font-semibold text-gray-700 mb-4">{exp.title}</p>
                 <p className="text-gray-600">{exp.description}</p>
               </div>
             ))}
@@ -205,29 +211,29 @@ export default function AboutPage() {
       <section className="py-16">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">教育背景</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {education.map((edu, index) => (
-              <div key={index} className="card p-8 hover-lift">
+            {educations.map((edu) => (
+              <div key={edu.id} className="card p-8 hover-lift">
                 <div className="flex justify-between mb-2">
                   <h3 className="text-xl font-semibold text-gray-900">{edu.school}</h3>
                   <span className="text-primary-600 font-medium">{edu.period}</span>
                 </div>
                 <p className="text-gray-700 mb-1">{edu.degree}</p>
-                <p className="text-gray-600">{edu.major}</p>
+                <p className="text-gray-600">{edu.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-      
+
       {/* 联系我 */}
       <section className="py-16 bg-primary-600 text-white">
         <div className="container text-center">
           <h2 className="text-3xl font-bold mb-6">对我的经历感兴趣?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">如果您对我的经历和技能感兴趣，或者想了解更多关于半导体测试领域的信息，欢迎随时联系我！</p>
-          <Link 
-            href="/contact" 
+          <Link
+            href="/contact"
             className="px-8 py-3 bg-white text-primary-600 rounded-full font-medium hover:bg-gray-100 transition-colors inline-flex items-center"
           >
             联系我
@@ -239,4 +245,4 @@ export default function AboutPage() {
       </section>
     </div>
   );
-} 
+}

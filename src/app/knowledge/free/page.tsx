@@ -6,7 +6,7 @@ import { getFreeArticles } from '@/lib/knowledge-storage';
 import { Article } from '@/types/knowledge';
 
 export default function FreeKnowledgePage() {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState([] as Article[]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
