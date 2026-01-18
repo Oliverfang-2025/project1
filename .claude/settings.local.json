@@ -7,7 +7,10 @@
       "Bash(npm run dev)",
       "Bash(curl:*)",
       "Bash(npm uninstall:*)",
-      "mcp__Playwright__browser_navigate"
+      "mcp__Playwright__browser_navigate",
+      "Bash(npx husky init:*)",
+      "Bash(npm run build)",
+      "Bash(echo:*)"
     ]
   }
 }

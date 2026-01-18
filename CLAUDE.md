@@ -56,11 +56,14 @@ src/
 const Navbar = dynamic(() => import('@/app/navbar/page'), { ssr: false });
 ```
 
-#### 2. 管理后台认证
-基于 localStorage 的简单认证系统:
+#### 2. 管理后台认证 (Neon PostgreSQL)
+- 数据库: Neon PostgreSQL (通过 Vercel 集成)
+- 认证 API: `/api/admin/login` (POST)
+- 密码修改: `/api/admin/change-password` (POST)
 - 认证状态存储在 `localStorage.getItem('admin_auth')`
-- 包含 `isLoggedIn` 和 `expiresAt` 字段
+- 包含 `isLoggedIn`、`username` 和 `expiresAt` 字段
 - 失效时自动重定向到 `/admin/login`
+- 默认账户: `admin` / `admin123` (首次登录后需修改密码)
 
 #### 3. Dify 聊天机器人集成
 配置在 `DifyChat.tsx`:
@@ -91,3 +94,53 @@ Next.js 配置允许从 `oss.of2088.top` 加载图片 (阿里云 OSS)
 | `/admin/pages` | 页面内容 |
 | `/admin/social` | 社交媒体 |
 | `/admin/contact-info` | 联系方式 |
+
+## 开发流程规范
+
+### 提交前检查 (Husky Pre-commit)
+项目使用 Husky 配置了 pre-commit hook，每次提交前自动运行 `npm run build`。
+如果构建失败，提交将被阻止，确保只有通过构建的代码才能提交。
+
+### 提交代码流程
+```bash
+# 1. 修改代码后，先运行构建检查
+npm run build
+
+# 2. 构建成功后，提交代码
+git add .
+git commit -m "feat: 描述你的改动"
+git push
+
+# 如果 pre-commit hook 阻止了提交，根据错误信息修复代码后重试
+```
+
+### 类型规范
+- 项目使用 TypeScript 但严格模式已关闭 (`strict: false`)
+- 事件处理函数使用 `any` 类型避免复杂类型定义
+- **禁止使用** `React.FormEvent`、`React.ChangeEvent` 等复杂类型
+- **推荐使用** `any` 类型或省略类型注解
+
+```tsx
+// ✅ 正确
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+}
+
+// ❌ 错误 (会导致构建失败)
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+}
+```
+
+### 本地开发环境变量
+本地开发需要配置 `.env.local` 文件：
+```bash
+# 从 Vercel Dashboard -> Storage -> Neon 复制 DATABASE_URL
+DATABASE_URL="postgresql://neondb_owner:npg_8fLmo1NgYMPV@ep-odd-pond-ahmzg5vt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
+```
+
+### 部署到 Vercel
+1. 推送代码到 GitHub
+2. Vercel 自动部署
+3. 部署成功后访问 `/api/init-db` 初始化数据库
+4. 登录后台修改默认密码

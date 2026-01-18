@@ -165,7 +165,7 @@ export default function ContactInfoPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                     required
                   />
-                  <p className="mt-1 text-xs text-gray-500">您可以输入详细地址或大致位置，如"北京市海淀区"</p>
+                  <p className="mt-1 text-xs text-gray-500">您可以输入详细地址或大致位置，如「北京市海淀区」</p>
                 </div>
               </div>
               

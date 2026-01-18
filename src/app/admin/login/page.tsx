@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,7 +26,7 @@ export default function LoginPage() {
   }, [router]);
 
   // 处理登录提交
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError('');
     setLoading(true);
