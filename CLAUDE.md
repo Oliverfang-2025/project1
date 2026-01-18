@@ -136,7 +136,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 本地开发需要配置 `.env.local` 文件：
 ```bash
 # 从 Vercel Dashboard -> Storage -> Neon 复制 DATABASE_URL
-DATABASE_URL="postgresql://neondb_owner:npg_8fLmo1NgYMPV@ep-odd-pond-ahmzg5vt-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
 ```
 
 ### 部署到 Vercel
