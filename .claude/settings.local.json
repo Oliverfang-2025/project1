@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(findstr:*)",
+      "Bash(timeout /t 5 /nobreak)",
+      "Bash(npm run dev)",
+      "Bash(curl:*)",
+      "Bash(npm uninstall:*)",
+      "mcp__Playwright__browser_navigate"
     ]
   }
 }

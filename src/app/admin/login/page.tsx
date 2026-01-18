@@ -27,25 +27,34 @@ export default function LoginPage() {
   }, [router]);
 
   // 处理登录提交
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // 简单的客户端身份验证 - 在实际应用中应使用安全的服务器端身份验证
-    // 这里使用初始管理员凭据 admin/admin123
-    if (username === 'admin' && password === 'admin123') {
-      // 设置身份验证数据，24小时过期
-      const authData = {
-        isLoggedIn: true,
-        username: 'admin',
-        expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24小时后过期
-      };
-      
-      localStorage.setItem('admin_auth', JSON.stringify(authData));
-      router.push('/admin');
-    } else {
-      setError('用户名或密码不正确');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        const authData = {
+          isLoggedIn: true,
+          username: data.username,
+          expiresAt: Date.now() + 24 * 60 * 60 * 1000
+        };
+        localStorage.setItem('admin_auth', JSON.stringify(authData));
+        router.push('/admin');
+      } else {
+        setError(data.error || '用户名或密码不正确');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('网络错误，请稍后重试');
       setLoading(false);
     }
   };
@@ -108,10 +117,6 @@ export default function LoginPage() {
           )}
 
           <div>
-            <p className="text-xs text-gray-500 mb-4">
-              <strong>提示:</strong> 默认用户名: admin, 密码: admin123
-            </p>
-            
             <button
               type="submit"
               disabled={loading}
