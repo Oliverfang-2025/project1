@@ -38,7 +38,7 @@ export default function PlanSection() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {plans.map((plan) => (
-                <div key={plan.id} className="card transition-transform hover:-translate-y-1">
+                <div key={plan.id} className="card hover-glow transition-transform hover:-translate-y-1">
                   <div className="mb-2">
                     <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary bg-opacity-10 text-primary">
                       {plan.category}
@@ -53,9 +53,9 @@ export default function PlanSection() {
                       <span className="font-medium">完成进度</span>
                       <span className="font-medium">{plan.progress}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="w-full bg-gray-200 rounded-full h-2.5 relative overflow-hidden">
                       <div
-                        className="bg-primary-600 h-2.5 rounded-full"
+                        className="bg-primary-600 h-2.5 rounded-full shadow-[0_0_10px_rgba(0,102,204,0.5)]"
                         style={{ width: `${plan.progress}%` }}
                       ></div>
                     </div>

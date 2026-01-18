@@ -39,7 +39,7 @@ export default function KnowledgeSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {freeArticles.map((article) => (
-              <div key={article.id} className="card overflow-hidden hover:shadow-lg transition">
+              <div key={article.id} className="card overflow-hidden hover-glow transition">
                 <div className="w-full h-48 bg-gray-200 relative mb-4">
                   {/* 使用占位图，实际开发时替换为真实图片 */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-blue-600 opacity-20"></div>
@@ -90,7 +90,7 @@ export default function KnowledgeSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {paidArticles.map((article) => (
-              <div key={article.id} className="flex bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+              <div key={article.id} className="flex bg-white rounded-lg shadow-md overflow-hidden hover-glow transition">
                 {/* 缩略图 */}
                 <div className="w-1/3 bg-gray-200 relative">
                   {/* 使用占位图，实际开发时替换为真实图片 */}

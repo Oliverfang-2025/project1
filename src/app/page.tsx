@@ -7,6 +7,7 @@ import { getVisibleSections } from '@/lib/section-storage';
 import SectionRenderer from '@/components/home/SectionRenderer';
 import { SectionConfig } from '@/types/section-config';
 import { DEFAULT_SECTIONS } from '@/types/section-config';
+import ChipShape from '@/components/patterns/ChipShape';
 
 export default function Home() {
   const [visibleSections, setVisibleSections] = useState(DEFAULT_SECTIONS as SectionConfig[]);
@@ -24,8 +25,13 @@ export default function Home() {
       <>
         {/* 现代风格的欢迎横幅 */}
         <section className="relative h-screen flex items-center">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-700 opacity-90"></div>
-          <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
+          <div className="absolute inset-0 bg-gradient-semiconductor opacity-95"></div>
+          <div className="absolute inset-0 bg-circuit-pattern"></div>
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="data-flow-line top-1/4"></div>
+            <div className="data-flow-line top-2/4" style={{animationDelay: '1.5s'}}></div>
+            <div className="data-flow-line top-3/4" style={{animationDelay: '3s'}}></div>
+          </div>
           <div className="container relative z-10 mx-auto px-4 text-white">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
@@ -52,7 +58,7 @@ export default function Home() {
             </div>
           </div>
           <div className="absolute bottom-10 right-10 opacity-70">
-            <div className="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md"></div>
+            <ChipShape size={160} />
           </div>
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
             <svg className="w-8 h-8 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,11 +80,16 @@ export default function Home() {
       {/* 现代风格的欢迎横幅 */}
       <section className="relative h-screen flex items-center">
         {/* 背景渐变 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-700 opacity-90"></div>
-        
-        {/* 背景图案 - 可选 */}
-        <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
-        
+        <div className="absolute inset-0 bg-gradient-semiconductor opacity-95"></div>
+        <div className="absolute inset-0 bg-circuit-pattern"></div>
+
+        {/* 数据流动画 */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="data-flow-line top-1/4"></div>
+          <div className="data-flow-line top-2/4" style={{animationDelay: '1.5s'}}></div>
+          <div className="data-flow-line top-3/4" style={{animationDelay: '3s'}}></div>
+        </div>
+
         {/* 内容 */}
         <div className="container relative z-10 mx-auto px-4 text-white">
           <div className="max-w-3xl">
@@ -90,14 +101,14 @@ export default function Home() {
               半导体/集成电路行业生产管理专家，热爱技术与创新
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="px-8 py-3 rounded-full bg-white text-primary-600 font-medium hover:bg-white/90 transition-colors"
               >
                 了解更多
               </Link>
-              <Link 
-                href="/plans" 
+              <Link
+                href="/plans"
                 className="px-8 py-3 rounded-full bg-transparent border-2 border-white text-white font-medium hover:bg-white/10 transition-colors"
               >
                 职业规划
@@ -105,12 +116,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
         {/* 装饰元素 - 右下角 */}
         <div className="absolute bottom-10 right-10 opacity-70">
-          <div className="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md"></div>
+          <ChipShape size={160} />
         </div>
-        
+
         {/* 下滑提示 */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <svg className="w-8 h-8 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">

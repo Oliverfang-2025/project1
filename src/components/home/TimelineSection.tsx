@@ -45,7 +45,7 @@ export default function TimelineSection() {
                   <div className="hidden md:flex items-center">
                     {/* 左右交替布局 */}
                     <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 order-last'}`}>
-                      <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                      <div className="bg-white p-6 rounded-lg shadow-md hover-glow transition">
                         <div className="mb-2 flex items-center justify-end">
                           <span className="text-sm text-gray-500">{item.date}</span>
                         </div>
@@ -78,8 +78,8 @@ export default function TimelineSection() {
                     </div>
 
                     {/* 中间圆点 */}
-                    <div className="absolute left-1/2 w-6 h-6 bg-primary rounded-full transform -translate-x-1/2 flex items-center justify-center">
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
+                    <div className="absolute left-1/2 w-8 h-8 bg-primary-600 rounded-full transform -translate-x-1/2 flex items-center justify-center shadow-[0_0_15px_rgba(0,102,204,0.6)]">
+                      <div className="w-3 h-3 bg-secondary-500 rounded-full"></div>
                     </div>
 
                     {/* 空白区域 */}
