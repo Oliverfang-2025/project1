@@ -1,61 +1,21 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getFreeArticles, getPaidArticles } from '@/lib/knowledge-storage';
+import { Article } from '@/types/knowledge';
 
 export default function KnowledgeSection() {
-  // 示例知识库数据，实际开发中可从API获取
-  const freeArticles = [
-    {
-      id: 1,
-      title: '前端开发最佳实践',
-      excerpt: '了解现代前端开发的最佳实践和常见陷阱',
-      category: '前端开发',
-      readTime: 8,
-      publishDate: '2023-05-15',
-      image: '/images/placeholder.png', // 实际开发中使用真实图片
-    },
-    {
-      id: 2,
-      title: 'Node.js性能优化指南',
-      excerpt: '如何优化Node.js应用性能，提高响应速度',
-      category: '后端开发',
-      readTime: 12,
-      publishDate: '2023-06-22',
-      image: '/images/placeholder.png',
-    },
-    {
-      id: 3,
-      title: 'React状态管理策略',
-      excerpt: '比较不同的React状态管理库和方法',
-      category: '前端开发',
-      readTime: 10,
-      publishDate: '2023-07-08',
-      image: '/images/placeholder.png',
-    },
-  ];
+  const [freeArticles, setFreeArticles] = useState<Article[]>([]);
+  const [paidArticles, setPaidArticles] = useState<Article[]>([]);
+  const [mounted, setMounted] = useState(false);
 
-  const paidArticles = [
-    {
-      id: 101,
-      title: '高级系统架构设计',
-      excerpt: '从零开始设计高可用、可扩展的系统架构',
-      category: '系统架构',
-      price: 29.9,
-      publishDate: '2023-04-10',
-      image: '/images/placeholder.png',
-    },
-    {
-      id: 102,
-      title: '微服务实战指南',
-      excerpt: '微服务架构的实际实施步骤和经验分享',
-      category: '系统架构',
-      price: 39.9,
-      publishDate: '2023-05-20',
-      image: '/images/placeholder.png',
-    },
-  ];
+  useEffect(() => {
+    setMounted(true);
+    setFreeArticles(getFreeArticles().slice(0, 3)); // 只显示前3篇
+    setPaidArticles(getPaidArticles().slice(0, 2)); // 只显示前2篇
+  }, []);
 
   return (
     <section id="knowledge" className="py-12">
