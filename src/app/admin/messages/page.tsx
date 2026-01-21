@@ -1,9 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import {
+  Mail,
+  Trash2,
+  Check,
+  Search,
+  Inbox,
+  Clock
+} from 'lucide-react';
 
-// 定义消息数据类型
 interface ContactMessage {
   id: number;
   name: string;
@@ -17,44 +25,41 @@ interface ContactMessage {
 export default function MessagesPage() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // 加载消息
   useEffect(() => {
+    loadMessages();
+  }, []);
+
+  const loadMessages = () => {
     try {
-      // 客户端才能使用localStorage
-      if (typeof window !== 'undefined') {
-        const storedMessages = localStorage.getItem('contactMessages');
-        if (storedMessages) {
-          setMessages(JSON.parse(storedMessages));
-        }
+      const storedMessages = localStorage.getItem('contactMessages');
+      if (storedMessages) {
+        setMessages(JSON.parse(storedMessages));
       }
     } catch (err) {
-      setError('加载消息时出错');
-      console.error('加载消息错误:', err);
+      console.error('Failed to load messages:', err);
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
-  // 标记消息为已读
   const markAsRead = (id: number) => {
-    const updatedMessages = messages.map(msg => 
+    const updated = messages.map(msg =>
       msg.id === id ? { ...msg, read: true } : msg
     );
-    
-    setMessages(updatedMessages);
-    localStorage.setItem('contactMessages', JSON.stringify(updatedMessages));
+    setMessages(updated);
+    localStorage.setItem('contactMessages', JSON.stringify(updated));
   };
 
-  // 删除消息
   const deleteMessage = (id: number) => {
-    const updatedMessages = messages.filter(msg => msg.id !== id);
-    setMessages(updatedMessages);
-    localStorage.setItem('contactMessages', JSON.stringify(updatedMessages));
+    if (confirm('确定要删除这条消息吗？')) {
+      const updated = messages.filter(msg => msg.id !== id);
+      setMessages(updated);
+      localStorage.setItem('contactMessages', JSON.stringify(updated));
+    }
   };
 
-  // 格式化日期
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString('zh-CN', {
@@ -66,76 +71,169 @@ export default function MessagesPage() {
     });
   };
 
-  return (
-    <div className="pt-24 pb-16">
-      <div className="container max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">消息管理</h1>
-          <Link href="/" className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors">
-            返回首页
-          </Link>
-        </div>
+  const filteredMessages = messages.filter(msg =>
+    msg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    msg.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    msg.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    msg.message.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
-          </div>
-        ) : error ? (
-          <div className="bg-red-50 p-4 rounded-md text-red-600">
-            {error}
-          </div>
-        ) : messages.length === 0 ? (
-          <div className="bg-gray-50 p-8 rounded-md text-center">
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">没有消息</h2>
-            <p className="text-gray-500">目前还没有收到任何联系消息。</p>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {messages.map((message) => (
-              <div 
-                key={message.id} 
-                className={`border rounded-lg shadow-sm p-6 ${message.read ? 'bg-white' : 'bg-blue-50'}`}
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h2 className="text-xl font-semibold text-gray-900">{message.subject}</h2>
-                    <div className="flex items-center space-x-4 mt-1">
-                      <p className="text-sm text-gray-600">
-                        <span className="font-medium">{message.name}</span> &lt;{message.email}&gt;
-                      </p>
-                      <p className="text-xs text-gray-500">{formatDate(message.date)}</p>
-                      {!message.read && (
-                        <span className="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
-                          新消息
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex space-x-2">
-                    {!message.read && (
-                      <button 
-                        onClick={() => markAsRead(message.id)}
-                        className="text-sm px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors"
-                      >
-                        标为已读
-                      </button>
-                    )}
-                    <button 
-                      onClick={() => deleteMessage(message.id)}
-                      className="text-sm px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors"
-                    >
-                      删除
-                    </button>
-                  </div>
-                </div>
-                <div className="p-4 bg-gray-50 rounded-md">
-                  <p className="whitespace-pre-wrap text-gray-700">{message.message}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+  const unreadCount = messages.filter(m => !m.read).length;
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">消息管理</h1>
+          <p className="text-foreground-muted mt-1">管理网站收到的联系消息</p>
+        </div>
       </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-primary-500/10 rounded-lg text-primary-400">
+                <Inbox className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">{messages.length}</p>
+                <p className="text-sm text-foreground-muted">总消息数</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-amber-500/10 rounded-lg text-amber-400">
+                <Mail className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">{unreadCount}</p>
+                <p className="text-sm text-foreground-muted">未读消息</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-green-500/10 rounded-lg text-green-400">
+                <Check className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">{messages.length - unreadCount}</p>
+                <p className="text-sm text-foreground-muted">已读消息</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search */}
+      <Card className="border-border">
+        <CardContent className="p-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground-muted" />
+            <input
+              type="text"
+              placeholder="搜索消息..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border rounded-lg text-foreground placeholder:text-foreground-subtle focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Messages List */}
+      {loading ? (
+        <Card className="border-border">
+          <CardContent className="p-12">
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : filteredMessages.length === 0 ? (
+        <Card className="border-border">
+          <CardContent className="p-12 text-center">
+            <Mail className="w-16 h-16 text-foreground-subtle mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">暂无消息</h3>
+            <p className="text-foreground-muted">
+              {searchTerm ? '没有找到匹配的消息' : '目前还没有收到任何联系消息'}
+            </p>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-4">
+          {filteredMessages.map((message) => (
+            <Card
+              key={message.id}
+              className={`border-border transition-all duration-200 ${
+                !message.read ? 'bg-primary-500/5 border-primary-500/30' : ''
+              }`}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      {!message.read && (
+                        <span className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></span>
+                      )}
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {message.subject || '无主题'}
+                      </h3>
+                    </div>
+                    <div className="space-y-2 mb-3">
+                      <p className="text-sm text-foreground-muted">
+                        <span className="font-medium text-foreground">姓名:</span> {message.name}
+                      </p>
+                      <p className="text-sm text-foreground-muted">
+                        <span className="font-medium text-foreground">邮箱:</span> {message.email}
+                      </p>
+                      <p className="text-sm text-foreground-subtle flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {formatDate(message.date)}
+                      </p>
+                    </div>
+                    <p className="text-foreground bg-background-tertiary p-3 rounded-lg text-sm">
+                      {message.message}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 flex-shrink-0">
+                    {!message.read && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => markAsRead(message.id)}
+                        className="gap-1"
+                      >
+                        <Check className="w-4 h-4" />
+                        标记已读
+                      </Button>
+                    )}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => deleteMessage(message.id)}
+                      className="gap-1 hover:text-error hover:border-error"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                      删除
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
-} 
+}

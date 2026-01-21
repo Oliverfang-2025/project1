@@ -10,7 +10,9 @@
       "mcp__Playwright__browser_navigate",
       "Bash(npx husky init:*)",
       "Bash(npm run build)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(npx tsc:*)",
+      "Bash(psql:*)"
     ]
   }
 }

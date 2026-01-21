@@ -96,6 +96,8 @@ Next.js 配置允许从 `oss.of2088.top` 加载图片 (阿里云 OSS)
 | `/admin/contact-info` | 联系方式 |
 
 ## 开发流程规范
+### 子代理 (Subagents)
+- 启用子代理开发时，必须遵守@Spec/subagents prompt.md 中的规范
 
 ### 提交前检查 (Husky Pre-commit)
 项目使用 Husky 配置了 pre-commit hook，每次提交前自动运行 `npm run build`。

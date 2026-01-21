@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "projects": "Projects",
+    "contact": "Contact",
+    "plans": "Career Plans",
+    "knowledge": "Knowledge",
+    "timeline": "Timeline"
+  },
+  "header": {
+    "menu": "Menu",
+    "close_menu": "Close Menu"
+  },
+  "footer": {
+    "copyright": "Copyright",
+    "all_rights_reserved": "All Rights Reserved",
+    "powered_by": "Powered by",
+    "about": "About",
+    "quick_links": "Quick Links",
+    "contact_info": "Contact Info",
+    "subscribe": "Subscribe",
+    "subscribe_desc": "Subscribe to my newsletter for the latest updates",
+    "email_placeholder": "Your email address",
+    "privacy_notice": "I respect your privacy and will not share your information with third parties.",
+    "subscribe_btn": "Subscribe",
+    "location": "Wuxi | Chengdu-Pidu District",
+    "tagline": "Semiconductor/IC industry production management expert, sharing professional knowledge and career experience, documenting personal growth",
+    "description": "Sharing technical knowledge and personal experience, documenting growth journey, showcasing personal projects and works."
+  },
+  "home": {
+    "hero": {
+      "greeting": "Hi, I'm",
+      "name": "Oliver Fang",
+      "tagline": "Semiconductor/IC Industry Expert",
+      "subtitle": "Passionate about technology and innovation, specializing in chip design and verification",
+      "view_work": "View Work",
+      "contact_me": "Contact Me"
+    },
+    "featured_projects": {
+      "title": "Featured Projects",
+      "view_all": "View More",
+      "tech_stack": "Tech Stack",
+      "view_project": "View Project"
+    },
+    "latest_articles": {
+      "title": "Latest Blog Posts",
+      "view_all": "View More",
+      "read_more": "Read More",
+      "views": "views"
+    },
+    "about_preview": {
+      "title": "About Me",
+      "description": "Semiconductor/IC industry production management expert with extensive experience in chip design and verification. Passionate about exploring cutting-edge technology and sharing professional knowledge.",
+      "skills_title": "Core Skills",
+      "learn_more": "Learn More",
+      "contact_btn": "Get in Touch"
+    },
+    "expertise": {
+      "title": "Expertise",
+      "chip_design": "Chip Design",
+      "chip_design_desc": "Digital/Analog IC Design, RTL Development, Timing Analysis",
+      "verification": "Verification",
+      "verification_desc": "Functional Verification, UVM Methodology, Coverage Analysis",
+      "embedded": "Embedded Systems",
+      "embedded_desc": "Firmware Development, Driver Implementation, System Debug"
+    },
+    "featured": {
+      "title": "Featured Projects",
+      "view_all": "View All"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "Introduction",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "certifications": "Certifications"
+  },
+  "blog": {
+    "title": "Tech Blog",
+    "subtitle": "Sharing Technical Insights & Practical Experience",
+    "latest": "Latest Posts",
+    "categories": "Categories",
+    "tags": "Tags",
+    "read_more": "Read More",
+    "published": "Published",
+    "updated": "Updated",
+    "all_categories": "All Categories",
+    "search_placeholder": "Search articles...",
+    "search_btn": "Search",
+    "no_articles": "No articles yet",
+    "load_more": "Load More",
+    "views": "views",
+    "author": "Author",
+    "reading_time": "Reading time",
+    "minutes": "minutes",
+    "related_articles": "Related Articles",
+    "back_to_list": "Back to List",
+    "prev_article": "Previous",
+    "next_article": "Next",
+    "share": "Share",
+    "copy_link": "Copy Link"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "My personal projects and open source contributions",
+    "all": "All Projects",
+    "featured": "Featured",
+    "view_details": "View Details",
+    "tech_stack": "Tech Stack",
+    "live_demo": "Live Demo",
+    "source_code": "Source Code",
+    "search": "Search projects...",
+    "filter_all": "All",
+    "filter_featured": "Featured",
+    "filter_web": "Web Apps",
+    "filter_mobile": "Mobile Apps",
+    "filter_other": "Other",
+    "no_projects": "No projects yet",
+    "no_results": "No matching projects found",
+    "loading": "Loading...",
+    "back_to_list": "Back to List",
+    "related_projects": "Related Projects",
+    "description": "Description",
+    "links": "Links",
+    "status": {
+      "published": "Published",
+      "draft": "Draft"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message Sent",
+      "error": "Failed to send, please try again"
+    },
+    "info": {
+      "email": "Email",
+      "location": "Location",
+      "social": "Social Media"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "language": "Language",
+    "theme": "Theme",
+    "dark_mode": "Dark Mode",
+    "light_mode": "Light Mode"
+  }
+}

@@ -48,3 +48,6 @@ next-env.d.ts
 # 临时文件
 .temp
 .tmp 
+
+# Auto Claude data directory
+.auto-claude/

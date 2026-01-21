@@ -1,21 +1,36 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { TimelineItem } from '@/types/timeline';
-import { getTimelineItems, saveTimelineItems, addTimelineItem, updateTimelineItem, deleteTimelineItem } from '@/lib/timeline-storage';
-import { Button, Table, Modal, Form, Input, InputNumber, DatePicker, Space, message, Popconfirm, Tag } from 'antd';
-import dayjs from 'dayjs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Clock,
+  Plus,
+  Edit,
+  Trash2,
+  Search,
+  Calendar,
+  Tag,
+  Heart,
+  MessageCircle
+} from 'lucide-react';
 
-const { TextArea } = Input;
+interface TimelineItem {
+  id: string;
+  title: string;
+  date: string;
+  content: string;
+  likes: number;
+  comments: number;
+  category: string;
+}
 
 export default function TimelinePage() {
-  const [timelineItems, setTimelineItems] = useState([] as TimelineItem[]);
+  const [timelineItems, setTimelineItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editingItem, setEditingItem] = useState(null as TimelineItem | null);
-  const [form] = Form.useForm();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Load timeline items
   useEffect(() => {
     loadTimelineItems();
   }, []);
@@ -23,11 +38,11 @@ export default function TimelinePage() {
   const loadTimelineItems = () => {
     setLoading(true);
     setTimeout(() => {
-      const items = getTimelineItems();
+      const stored = localStorage.getItem('timelineItems');
+      let items: TimelineItem[] = stored ? JSON.parse(stored) : [];
 
-      // Initialize with sample data if empty
       if (items.length === 0) {
-        const sampleData: TimelineItem[] = [
+        items = [
           {
             id: '1',
             title: '参加Web技术研讨会',
@@ -56,269 +71,199 @@ export default function TimelinePage() {
             category: '生活'
           }
         ];
-        saveTimelineItems(sampleData);
-        setTimelineItems(sampleData);
-      } else {
-        setTimelineItems(items);
+        localStorage.setItem('timelineItems', JSON.stringify(items));
       }
 
+      setTimelineItems(items);
       setLoading(false);
     }, 500);
   };
 
-  // Open modal for adding
-  const handleAdd = () => {
-    setEditingItem(null);
-    form.resetFields();
-    setIsModalVisible(true);
-  };
+  const filteredItems = timelineItems.filter(item =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // Open modal for editing
-  const handleEdit = (item: TimelineItem) => {
-    setEditingItem(item);
-    form.setFieldsValue({
-      ...item,
-      date: dayjs(item.date)
-    });
-    setIsModalVisible(true);
-  };
-
-  // Handle form submission
-  const handleSubmit = async () => {
-    try {
-      const values = await form.validateFields();
-      const timelineData: TimelineItem = {
-        id: editingItem?.id || `timeline_${Date.now()}`,
-        title: values.title,
-        date: values.date.format('YYYY-MM-DD'),
-        content: values.content,
-        likes: values.likes || 0,
-        comments: values.comments || 0,
-        category: values.category
-      };
-
-      if (editingItem) {
-        updateTimelineItem(editingItem.id, timelineData);
-        message.success('时间线项已更新');
-      } else {
-        addTimelineItem(timelineData);
-        message.success('时间线项已添加');
-      }
-
-      loadTimelineItems();
-      setIsModalVisible(false);
-      form.resetFields();
-    } catch (error) {
-      console.error('Form validation failed:', error);
-    }
-  };
-
-  // Handle delete
   const handleDelete = (id: string) => {
-    deleteTimelineItem(id);
-    message.success('时间线项已删除');
-    loadTimelineItems();
-  };
-
-  // Table columns
-  const columns = [
-    {
-      title: '日期',
-      dataIndex: 'date',
-      key: 'date',
-      width: 120,
-      sorter: (a: TimelineItem, b: TimelineItem) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-      render: (date: string) => date
-    },
-    {
-      title: '标题',
-      dataIndex: 'title',
-      key: 'title',
-      ellipsis: true
-    },
-    {
-      title: '分类',
-      dataIndex: 'category',
-      key: 'category',
-      width: 100,
-      render: (category: string) => category ? <Tag color="blue">{category}</Tag> : '-'
-    },
-    {
-      title: '内容',
-      dataIndex: 'content',
-      key: 'content',
-      ellipsis: true,
-      render: (content: string) => (
-        <div className="max-w-xs truncate">{content}</div>
-      )
-    },
-    {
-      title: '点赞',
-      dataIndex: 'likes',
-      key: 'likes',
-      width: 80
-    },
-    {
-      title: '评论',
-      dataIndex: 'comments',
-      key: 'comments',
-      width: 80
-    },
-    {
-      title: '操作',
-      key: 'action',
-      width: 150,
-      render: (_: any, record: TimelineItem) => (
-        <Space size="small">
-          <Button
-            type="link"
-            size="small"
-            onClick={() => handleEdit(record)}
-          >
-            编辑
-          </Button>
-          <Popconfirm
-            title="确定要删除这条时间线吗？"
-            onConfirm={() => handleDelete(record.id)}
-            okText="确定"
-            cancelText="取消"
-          >
-            <Button type="link" size="small" danger>
-              删除
-            </Button>
-          </Popconfirm>
-        </Space>
-      )
+    if (confirm('确定要删除这条时间线吗？')) {
+      const updated = timelineItems.filter(item => item.id !== id);
+      setTimelineItems(updated);
+      localStorage.setItem('timelineItems', JSON.stringify(updated));
     }
-  ];
+  };
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">时间线管理</h1>
-          <p className="text-sm text-gray-600 mt-1">管理网站心路历程内容</p>
+          <h1 className="text-2xl font-bold text-foreground">时间线管理</h1>
+          <p className="text-foreground-muted mt-1">管理您的经历和里程碑</p>
         </div>
-        <Button
-          type="primary"
-          onClick={handleAdd}
-        >
-          添加时间线
+        <Button variant="primary" className="gap-2">
+          <Plus className="w-4 h-4" />
+          添加事件
         </Button>
       </div>
 
-      {/* Timeline Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-gray-900">{timelineItems.length}</div>
-          <div className="text-sm text-gray-600">总时间线数</div>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-primary-600">
-            {timelineItems.reduce((sum, item) => sum + item.likes, 0)}
-          </div>
-          <div className="text-sm text-gray-600">总点赞数</div>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-secondary-600">
-            {timelineItems.reduce((sum, item) => sum + item.comments, 0)}
-          </div>
-          <div className="text-sm text-gray-600">总评论数</div>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-green-600">
-            {new Set(timelineItems.map(item => item.category)).size}
-          </div>
-          <div className="text-sm text-gray-600">分类数量</div>
-        </div>
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-primary-500/10 rounded-lg text-primary-400">
+                <Clock className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">{timelineItems.length}</p>
+                <p className="text-sm text-foreground-muted">总时间线数</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-red-500/10 rounded-lg text-red-400">
+                <Heart className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">
+                  {timelineItems.reduce((sum, item) => sum + item.likes, 0)}
+                </p>
+                <p className="text-sm text-foreground-muted">总点赞数</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-blue-500/10 rounded-lg text-blue-400">
+                <MessageCircle className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">
+                  {timelineItems.reduce((sum, item) => sum + item.comments, 0)}
+                </p>
+                <p className="text-sm text-foreground-muted">总评论数</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-green-500/10 rounded-lg text-green-400">
+                <Tag className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-foreground">
+                  {new Set(timelineItems.map(item => item.category)).size}
+                </p>
+                <p className="text-sm text-foreground-muted">分类数量</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Timeline Table */}
-      <div className="bg-white rounded-lg shadow-sm">
-        <Table
-          columns={columns}
-          dataSource={timelineItems}
-          rowKey="id"
-          loading={loading}
-          pagination={{
-            pageSize: 10,
-            showSizeChanger: true,
-            showTotal: (total) => `共 ${total} 条`
-          }}
-        />
-      </div>
-
-      {/* Add/Edit Modal */}
-      <Modal
-        title={editingItem ? '编辑时间线' : '添加时间线'}
-        open={isModalVisible}
-        onOk={handleSubmit}
-        onCancel={() => {
-          setIsModalVisible(false);
-          form.resetFields();
-        }}
-        width={600}
-        okText="确定"
-        cancelText="取消"
-      >
-        <Form
-          form={form}
-          layout="vertical"
-          className="mt-4"
-        >
-          <Form.Item
-            label="标题"
-            name="title"
-            rules={[{ required: true, message: '请输入标题' }]}
-          >
-            <Input placeholder="请输入时间线标题" />
-          </Form.Item>
-
-          <Form.Item
-            label="日期"
-            name="date"
-            rules={[{ required: true, message: '请选择日期' }]}
-          >
-            <DatePicker className="w-full" />
-          </Form.Item>
-
-          <Form.Item
-            label="分类"
-            name="category"
-          >
-            <Input placeholder="例如：技术、生活、阅读" />
-          </Form.Item>
-
-          <Form.Item
-            label="内容"
-            name="content"
-            rules={[{ required: true, message: '请输入内容' }]}
-          >
-            <TextArea
-              rows={4}
-              placeholder="请输入时间线内容"
+      {/* Search */}
+      <Card className="border-border">
+        <CardContent className="p-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground-muted" />
+            <input
+              type="text"
+              placeholder="搜索时间线..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border rounded-lg text-foreground placeholder:text-foreground-subtle focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
-          </Form.Item>
-
-          <div className="grid grid-cols-2 gap-4">
-            <Form.Item
-              label="点赞数"
-              name="likes"
-              initialValue={0}
-            >
-              <InputNumber min={0} className="w-full" />
-            </Form.Item>
-
-            <Form.Item
-              label="评论数"
-              name="comments"
-              initialValue={0}
-            >
-              <InputNumber min={0} className="w-full" />
-            </Form.Item>
           </div>
-        </Form>
-      </Modal>
+        </CardContent>
+      </Card>
+
+      {/* Timeline List */}
+      <Card className="border-border">
+        <CardHeader>
+          <CardTitle>时间线事件</CardTitle>
+          <CardDescription>共 {filteredItems.length} 个事件</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500 mx-auto"></div>
+            </div>
+          ) : filteredItems.length === 0 ? (
+            <div className="text-center py-12">
+              <Calendar className="w-16 h-16 text-foreground-subtle mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">暂无时间线事件</h3>
+              <p className="text-foreground-muted">
+                {searchTerm ? '没有找到匹配的事件' : '点击上方按钮添加您的第一个事件'}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {filteredItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-4 bg-background-tertiary border border-border rounded-lg hover:border-primary-500/50 transition-all duration-200"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                        {item.category && (
+                          <span className="px-2 py-0.5 bg-primary-500/10 text-primary-400 text-xs font-medium rounded-full border border-primary-500/20">
+                            {item.category}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-foreground-muted text-sm mb-3 line-clamp-2">
+                        {item.content}
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-foreground-subtle">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {item.date}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Heart className="w-4 h-4" />
+                          {item.likes}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageCircle className="w-4 h-4" />
+                          {item.comments}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 flex-shrink-0">
+                      <Button variant="outline" size="sm" className="gap-1">
+                        <Edit className="w-4 h-4" />
+                        编辑
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1 hover:text-error hover:border-error"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        删除
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
