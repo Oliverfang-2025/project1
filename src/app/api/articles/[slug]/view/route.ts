@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { neon } from '@neondatabase/serverless';
-
-const sql = neon(process.env.DATABASE_URL!);
+import { sql } from '@/lib/db';
 
 // POST /api/articles/[slug]/view - Increment article view count by slug
 export async function POST(

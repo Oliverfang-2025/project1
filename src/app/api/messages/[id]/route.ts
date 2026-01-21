@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { neon } from '@neondatabase/serverless';
 import { isAuthenticated, unauthorizedResponse } from '@/lib/auth';
-
-const sql = neon(process.env.DATABASE_URL!);
+import { sql } from '@/lib/db';
 
 // GET /api/messages/[id] - Get single message (requires auth)
 export async function GET(

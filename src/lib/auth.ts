@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { verifyLogin } from '@/lib/db';
+import { verifyLogin, sql } from '@/lib/db';
 
 interface AuthBody {
   username?: string;
@@ -46,8 +46,6 @@ export async function isAuthenticated(request: NextRequest): Promise<boolean> {
     if (body.username) {
       // Verify username exists in database
       // Since we don't have password here, we just check if user exists
-      const { neon } = await import('@neondatabase/serverless');
-      const sql = neon(process.env.DATABASE_URL!);
       const result = await sql`SELECT username FROM admins WHERE username = ${body.username} LIMIT 1`;
       return result.length > 0;
     }

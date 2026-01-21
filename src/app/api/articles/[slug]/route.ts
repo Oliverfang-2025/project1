@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { neon } from '@neondatabase/serverless';
 import { isAuthenticated, unauthorizedResponse } from '@/lib/auth';
-
-const sql = neon(process.env.DATABASE_URL!);
+import { sql } from '@/lib/db';
 
 // GET /api/articles/[slug] - Get single article by slug
 export async function GET(

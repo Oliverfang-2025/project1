@@ -12,7 +12,8 @@
       "Bash(npm run build)",
       "Bash(echo:*)",
       "Bash(npx tsc:*)",
-      "Bash(psql:*)"
+      "Bash(psql:*)",
+      "Bash(set PGPASSWORD=WWWwww123!:*)"
     ]
   }
 }

@@ -1,4 +1,5 @@
-import { neon } from '@neondatabase/serverless';
+import { neon, NeonQueryFunction } from '@neondatabase/serverless';
+import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 
 // Get database URL from environment variable
@@ -8,7 +9,36 @@ if (!databaseUrl) {
   throw new Error('DATABASE_URL environment variable is not set');
 }
 
-const sql = neon(databaseUrl);
+// Environment detection: use Neon for production, pg Pool for local development
+const isNeon = databaseUrl.includes('neon.tech') ||
+               databaseUrl.includes('.aws.neon.tech') ||
+               process.env.VERCEL === '1';
+
+let sql: NeonQueryFunction<false, false>;
+
+if (isNeon) {
+  // Production: Use Neon serverless
+  sql = neon(databaseUrl);
+} else {
+  // Local development: Use pg Pool with Neon-compatible wrapper
+  const pool = new Pool({
+    connectionString: databaseUrl,
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
+  });
+
+  // Wrap pg Pool query as Neon template tag syntax
+  sql = ((strings: TemplateStringsArray, ...values: any[]) => {
+    // Build parameterized query from template strings
+    const query = strings.reduce((acc, str, i) =>
+      acc + str + (i < values.length ? `$${i + 1}` : ''), ''
+    );
+
+    // Execute query and return rows (matching Neon's behavior)
+    return pool.query(query, values).then(res => res.rows);
+  }) as any;
+}
 
 // Initialize database
 export async function initDB() {
@@ -166,3 +196,6 @@ export async function changePassword(username: string, oldPassword: string, newP
   await sql`UPDATE admins SET password_hash = ${newHash}, updated_at = CURRENT_TIMESTAMP WHERE username = ${username}`;
   return true;
 }
+
+// Export sql function for use in API routes
+export { sql };
