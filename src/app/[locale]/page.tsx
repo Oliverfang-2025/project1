@@ -19,6 +19,12 @@ import {
   fadeIn,
   staggerItem
 } from '@/components/animations';
+import {
+  WaferScanningGrid,
+  HoverCard3D,
+  TestingScanLine,
+  StatusIndicator
+} from '@/components/semiconductors';
 
 interface Project {
   id: number;
@@ -110,6 +116,9 @@ export default function Home() {
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
 
+        {/* Wafer Scanning Grid Effect */}
+        <WaferScanningGrid className="z-0" />
+
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
@@ -175,7 +184,7 @@ export default function Home() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                   {featuredProjects.map((project) => (
                     <StaggerItem key={project.id}>
-                      <HoverCard className="h-full">
+                      <HoverCard3D className="h-full">
                         <Card className="h-full hover:border-primary-500 transition-all duration-300 group">
                           <CardHeader className="p-0">
                             {project.cover_image && (
@@ -217,7 +226,7 @@ export default function Home() {
                             </Button>
                           </CardFooter>
                         </Card>
-                      </HoverCard>
+                      </HoverCard3D>
                     </StaggerItem>
                   ))}
                 </div>
@@ -301,7 +310,10 @@ export default function Home() {
       </SectionWrapper>
 
       {/* About Preview Section */}
-      <SectionWrapper className="py-20 md:py-32 bg-background-secondary">
+      <SectionWrapper className="py-20 md:py-32 bg-background-secondary relative overflow-hidden">
+        {/* Testing Scan Line Background */}
+        <TestingScanLine className="opacity-30" />
+
         <div className="container mx-auto px-4">
           <StaggerWrapper className="max-w-4xl mx-auto text-center">
             <StaggerItem>
@@ -317,8 +329,10 @@ export default function Home() {
                 {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'IC Design', 'UVM', 'FPGA'].map((skill, i) => (
                   <span
                     key={i}
-                    className="px-4 py-2 bg-background-tertiary border border-border text-foreground rounded-lg hover:border-primary-500 hover:text-primary-500 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-background-tertiary border border-border text-foreground rounded-lg hover:border-primary-500 hover:text-primary-500 transition-colors"
                   >
+                    {/* Status Indicator */}
+                    <StatusIndicator status="pass" size={6} />
                     {skill}
                   </span>
                 ))}

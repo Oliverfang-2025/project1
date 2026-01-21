@@ -13,7 +13,8 @@
       "Bash(echo:*)",
       "Bash(npx tsc:*)",
       "Bash(psql:*)",
-      "Bash(set PGPASSWORD=WWWwww123!:*)"
+      "Bash(set PGPASSWORD=WWWwww123!:*)",
+      "Bash(node:*)"
     ]
   }
 }

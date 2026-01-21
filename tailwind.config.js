@@ -126,6 +126,10 @@ module.exports = {
         'glow': '0 0 20px rgba(14, 165, 233, 0.4)',
         'glow-lg': '0 0 30px rgba(14, 165, 233, 0.5)',
         'glow-accent': '0 0 20px rgba(34, 211, 238, 0.4)',
+        // Semiconductor theme shadows
+        'glow-gold': '0 0 15px rgba(212, 168, 83, 0.6)',
+        'glow-gold-lg': '0 0 25px rgba(212, 168, 83, 0.8)',
+        'laser-glow': '0 0 20px rgba(34, 211, 238, 0.6), 0 0 40px rgba(14, 165, 233, 0.4)',
       },
       // 背景渐变
       backgroundImage: {
