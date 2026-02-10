@@ -27,7 +27,9 @@
     "subscribe_btn": "订阅",
     "location": "无锡 | 成都-郫都区",
     "tagline": "半导体/集成电路行业生产管理专家，分享专业知识与职业经验，记录个人成长",
-    "description": "分享技术知识和个人经验，记录成长历程，展示个人项目和作品。"
+    "description": "分享技术知识和个人经验，记录成长历程，展示个人项目和作品。",
+    "privacy_policy": "隐私政策",
+    "terms_of_service": "服务条款"
   },
   "home": {
     "hero": {
@@ -73,11 +75,32 @@
   },
   "about": {
     "title": "关于我",
+    "subtitle": "半导体/集成电路行业生产管理专家",
     "intro": "个人简介",
+    "intro_text": "我是 Oliver Fang，一名专注于半导体和集成电路行业的生产管理工程师。拥有丰富的芯片设计、验证和生产管理经验，热爱技术创新和知识分享。在工作中，我致力于优化生产流程、提升团队效率，并持续学习前沿技术。",
     "experience": "工作经历",
     "education": "教育背景",
     "skills": "专业技能",
-    "certifications": "资质认证"
+    "certifications": "资质认证",
+    "technical_skills": "技术技能",
+    "industry_skills": "行业技能",
+    "skill_chip_design_flow": "芯片设计流程",
+    "skill_functional_verification": "功能验证",
+    "skill_production_management": "生产管理",
+    "skill_project_coordination": "项目协调",
+    "skill_technical_documentation": "技术文档编写",
+    "exp_company": "半导体公司",
+    "exp_position": "生产管理工程师",
+    "exp_period": "2020 - 至今",
+    "exp_description": "负责芯片生产流程优化、团队协调与技术文档管理",
+    "edu_school": "电子科技大学",
+    "edu_degree": "本科",
+    "edu_major": "微电子科学与工程",
+    "edu_period": "2016 - 2020",
+    "cert_ic_designer": "集成电路设计师认证",
+    "cert_ic_issuer": "工信部",
+    "cert_pmp": "项目管理专业人士 (PMP)",
+    "cert_pmp_issuer": "PMI"
   },
   "blog": {
     "title": "技术博客",
@@ -102,7 +125,11 @@
     "prev_article": "上一篇",
     "next_article": "下一篇",
     "share": "分享",
-    "copy_link": "复制链接"
+    "copy_link": "复制链接",
+    "not_found": "文章未找到",
+    "loading": "加载中...",
+    "previous": "上一页",
+    "next": "下一页"
   },
   "projects": {
     "title": "项目作品",
@@ -133,6 +160,14 @@
   },
   "contact": {
     "title": "联系方式",
+    "subtitle": "期待与您的交流与合作",
+    "send_message": "发送消息",
+    "contact_info_title": "联系方式",
+    "phone": "电话",
+    "location_value": "无锡 | 成都-郫都区",
+    "working_hours": "工作时间",
+    "working_hours_text": "周一至周五: 9:00 - 18:00 (CST)",
+    "response_time": "通常会在24小时内回复您的消息",
     "form": {
       "name": "姓名",
       "email": "邮箱",
@@ -147,7 +182,29 @@
       "email": "电子邮箱",
       "location": "所在地区",
       "social": "社交媒体"
+    },
+    "placeholder": {
+      "name": "请输入您的姓名",
+      "email": "请输入您的邮箱",
+      "subject": "消息主题（可选）",
+      "message": "请输入您的留言内容..."
+    },
+    "validation": {
+      "name_required": "姓名不能为空",
+      "email_required": "邮箱不能为空",
+      "email_invalid": "邮箱格式不正确",
+      "message_required": "留言内容不能为空",
+      "message_too_long": "留言内容不能超过5000字符"
     }
+  },
+  "timeline": {
+    "title": "时间线",
+    "subtitle": "记录职业发展与成长历程",
+    "no_events": "暂无时间线事件",
+    "filter_all": "全部",
+    "filter_work": "工作",
+    "filter_education": "教育",
+    "filter_achievement": "成就"
   },
   "common": {
     "loading": "加载中...",

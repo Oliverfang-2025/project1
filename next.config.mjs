@@ -20,6 +20,23 @@ const nextConfig = {
   },
   compress: true,
   poweredByHeader: false,
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-tooltip',
+      '@dnd-kit/core',
+      '@dnd-kit/sortable',
+      '@dnd-kit/utilities',
+      'react-markdown',
+      'rehype-highlight',
+      'remark-gfm',
+      'date-fns',
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

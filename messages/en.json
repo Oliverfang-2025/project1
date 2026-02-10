@@ -27,7 +27,9 @@
     "subscribe_btn": "Subscribe",
     "location": "Wuxi | Chengdu-Pidu District",
     "tagline": "Semiconductor/IC industry production management expert, sharing professional knowledge and career experience, documenting personal growth",
-    "description": "Sharing technical knowledge and personal experience, documenting growth journey, showcasing personal projects and works."
+    "description": "Sharing technical knowledge and personal experience, documenting growth journey, showcasing personal projects and works.",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service"
   },
   "home": {
     "hero": {
@@ -73,11 +75,32 @@
   },
   "about": {
     "title": "About Me",
+    "subtitle": "Semiconductor/IC Industry Production Management Expert",
     "intro": "Introduction",
+    "intro_text": "I'm Oliver Fang, a production management engineer focused on the semiconductor and integrated circuit industry. With rich experience in chip design, verification, and production management, I'm passionate about technological innovation and knowledge sharing. At work, I'm dedicated to optimizing production processes, improving team efficiency, and continuously learning cutting-edge technologies.",
     "experience": "Experience",
     "education": "Education",
     "skills": "Skills",
-    "certifications": "Certifications"
+    "certifications": "Certifications",
+    "technical_skills": "Technical Skills",
+    "industry_skills": "Industry Skills",
+    "skill_chip_design_flow": "Chip Design Flow",
+    "skill_functional_verification": "Functional Verification",
+    "skill_production_management": "Production Management",
+    "skill_project_coordination": "Project Coordination",
+    "skill_technical_documentation": "Technical Documentation",
+    "exp_company": "Semiconductor Company",
+    "exp_position": "Production Management Engineer",
+    "exp_period": "2020 - Present",
+    "exp_description": "Responsible for chip production process optimization, team coordination, and technical documentation management",
+    "edu_school": "University of Electronic Science and Technology",
+    "edu_degree": "Bachelor's Degree",
+    "edu_major": "Microelectronics Science and Engineering",
+    "edu_period": "2016 - 2020",
+    "cert_ic_designer": "IC Designer Certification",
+    "cert_ic_issuer": "MIIT",
+    "cert_pmp": "Project Management Professional (PMP)",
+    "cert_pmp_issuer": "PMI"
   },
   "blog": {
     "title": "Tech Blog",
@@ -102,7 +125,11 @@
     "prev_article": "Previous",
     "next_article": "Next",
     "share": "Share",
-    "copy_link": "Copy Link"
+    "copy_link": "Copy Link",
+    "not_found": "Article Not Found",
+    "loading": "Loading...",
+    "previous": "Previous",
+    "next": "Next"
   },
   "projects": {
     "title": "Projects",
@@ -133,6 +160,14 @@
   },
   "contact": {
     "title": "Contact",
+    "subtitle": "Looking forward to connecting with you",
+    "send_message": "Send Message",
+    "contact_info_title": "Contact Information",
+    "phone": "Phone",
+    "location_value": "Wuxi | Chengdu-Pidu District",
+    "working_hours": "Working Hours",
+    "working_hours_text": "Mon - Fri: 9:00 - 18:00 (CST)",
+    "response_time": "Usually respond within 24 hours",
     "form": {
       "name": "Name",
       "email": "Email",
@@ -147,7 +182,29 @@
       "email": "Email",
       "location": "Location",
       "social": "Social Media"
+    },
+    "placeholder": {
+      "name": "Enter your name",
+      "email": "Enter your email",
+      "subject": "Subject (optional)",
+      "message": "Enter your message..."
+    },
+    "validation": {
+      "name_required": "Name is required",
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email format",
+      "message_required": "Message is required",
+      "message_too_long": "Message cannot exceed 5000 characters"
     }
+  },
+  "timeline": {
+    "title": "Timeline",
+    "subtitle": "Documenting career development and growth",
+    "no_events": "No timeline events yet",
+    "filter_all": "All",
+    "filter_work": "Work",
+    "filter_education": "Education",
+    "filter_achievement": "Achievement"
   },
   "common": {
     "loading": "Loading...",

@@ -35,35 +35,32 @@ const DifyChat = () => {
 
   useEffect(() => {
     if (scriptLoaded.current) return;
-    
-    // 添加自定义样式
-    const style = document.createElement('style');
-    style.innerHTML = CUSTOM_STYLES;
-    document.head.appendChild(style);
-
-    // 配置Dify
-    window.difyChatbotConfig = DIFY_CONFIG;
-
-    // 加载Dify脚本
-    const script = document.createElement('script');
-    script.src = `${DIFY_CONFIG.serverUrl}/embed.min.js`;
-    script.id = "dify-script";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-
     scriptLoaded.current = true;
 
-    // 清理函数
-    return () => {
-      if (style && style.parentNode) {
-        style.parentNode.removeChild(style);
-      }
-      const scriptToRemove = document.getElementById("dify-script");
-      if (scriptToRemove && scriptToRemove.parentNode) {
-        scriptToRemove.parentNode.removeChild(scriptToRemove);
-      }
+    // Defer loading until browser is idle to avoid blocking initial render
+    const loadDify = () => {
+      // Add custom styles
+      const style = document.createElement('style');
+      style.innerHTML = CUSTOM_STYLES;
+      document.head.appendChild(style);
+
+      // Configure Dify
+      window.difyChatbotConfig = DIFY_CONFIG;
+
+      // Load Dify script
+      const script = document.createElement('script');
+      script.src = `${DIFY_CONFIG.serverUrl}/embed.min.js`;
+      script.id = "dify-script";
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
     };
+
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(loadDify, { timeout: 3000 });
+    } else {
+      setTimeout(loadDify, 2000);
+    }
   }, []);
 
   return null;

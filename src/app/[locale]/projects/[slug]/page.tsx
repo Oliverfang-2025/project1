@@ -28,6 +28,7 @@ interface Project {
 
 export default function ProjectDetailPage() {
   const t = useTranslations('projects');
+  const nav = useTranslations('nav');
   const locale = useLocale();
   const params = useParams();
   const { slug } = params;
@@ -105,8 +106,8 @@ export default function ProjectDetailPage() {
   const projectSchema = generateProjectSchema(project, locale);
   const projectTitle = getProjectTitle(project);
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: locale === 'zh' ? '首页' : 'Home', path: '' },
-    { name: locale === 'zh' ? '项目作品' : 'Projects', path: '/projects' },
+    { name: nav('home'), path: '' },
+    { name: nav('projects'), path: '/projects' },
     { name: projectTitle, path: `/projects/${slugStr}` }
   ], locale);
 

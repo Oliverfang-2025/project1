@@ -48,6 +48,7 @@ interface RelatedArticle {
 
 export default function BlogPostPage() {
   const t = useTranslations('blog');
+  const nav = useTranslations('nav');
   const common = useTranslations('common');
   const locale = useLocale();
   const params = useParams();
@@ -172,7 +173,7 @@ export default function BlogPostPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Article Not Found</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-4">{t('not_found')}</h1>
           <Link href={`/${locale}/blog`}>
             <Button variant="outline">{t('back_to_list')}</Button>
           </Link>
@@ -184,8 +185,8 @@ export default function BlogPostPage() {
   // Generate structured data
   const articleSchema = generateArticleSchema(article, locale);
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: locale === 'zh' ? '首页' : 'Home', path: '' },
-    { name: locale === 'zh' ? '技术博客' : 'Blog', path: '/blog' },
+    { name: nav('home'), path: '' },
+    { name: nav('blog'), path: '/blog' },
     { name: title, path: `/blog/${slugStr}` }
   ], locale);
 

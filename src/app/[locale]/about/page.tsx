@@ -16,6 +16,7 @@ import {
 
 export default function AboutPage() {
   const t = useTranslations('about');
+  const nav = useTranslations('nav');
   const locale = useLocale();
 
   const technicalSkills = [
@@ -28,41 +29,41 @@ export default function AboutPage() {
   ];
 
   const industrySkills = [
-    { name: '芯片设计流程', level: 90 },
-    { name: '功能验证', level: 88 },
-    { name: '生产管理', level: 85 },
-    { name: '项目协调', level: 82 },
-    { name: '技术文档编写', level: 88 }
+    { name: t('skill_chip_design_flow'), level: 90 },
+    { name: t('skill_functional_verification'), level: 88 },
+    { name: t('skill_production_management'), level: 85 },
+    { name: t('skill_project_coordination'), level: 82 },
+    { name: t('skill_technical_documentation'), level: 88 }
   ];
 
   const experiences = [
     {
-      company: '半导体公司',
-      position: '生产管理工程师',
-      period: '2020 - 至今',
-      description: '负责芯片生产流程优化、团队协调与技术文档管理'
+      company: t('exp_company'),
+      position: t('exp_position'),
+      period: t('exp_period'),
+      description: t('exp_description')
     }
   ];
 
   const education = [
     {
-      school: '电子科技大学',
-      degree: '本科',
-      major: '微电子科学与工程',
-      period: '2016 - 2020'
+      school: t('edu_school'),
+      degree: t('edu_degree'),
+      major: t('edu_major'),
+      period: t('edu_period')
     }
   ];
 
   const certifications = [
-    { name: '集成电路设计师认证', issuer: '工信部', year: '2021' },
-    { name: '项目管理专业人士 (PMP)', issuer: 'PMI', year: '2023' }
+    { name: t('cert_ic_designer'), issuer: t('cert_ic_issuer'), year: '2021' },
+    { name: t('cert_pmp'), issuer: t('cert_pmp_issuer'), year: '2023' }
   ];
 
   // Generate structured data
   const personSchema = generatePersonSchema(locale);
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: locale === 'zh' ? '首页' : 'Home', path: '' },
-    { name: locale === 'zh' ? '关于我' : 'About', path: '/about' }
+    { name: nav('home'), path: '' },
+    { name: nav('about'), path: '/about' }
   ], locale);
 
   return (
@@ -72,7 +73,7 @@ export default function AboutPage() {
       <JsonLd data={breadcrumbSchema} />
       <SectionWrapper className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t('title')}</h1>
-        <p className="text-gray-400 text-lg">半导体/集成电路行业生产管理专家</p>
+        <p className="text-gray-400 text-lg">{t('subtitle')}</p>
       </SectionWrapper>
 
       <StaggerWrapper className="space-y-12">
@@ -87,9 +88,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-300 leading-relaxed">
-                我是 Oliver Fang，一名专注于半导体和集成电路行业的生产管理工程师。
-                拥有丰富的芯片设计、验证和生产管理经验，热爱技术创新和知识分享。
-                在工作中，我致力于优化生产流程、提升团队效率，并持续学习前沿技术。
+                {t('intro_text')}
               </p>
             </CardContent>
           </Card>
@@ -107,7 +106,7 @@ export default function AboutPage() {
             <CardContent className="space-y-8">
               {/* Technical Skills */}
               <div>
-                <h3 className="text-xl font-semibold text-white mb-4">技术技能</h3>
+                <h3 className="text-xl font-semibold text-white mb-4">{t('technical_skills')}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {technicalSkills.map((skill, index) => (
                     <div key={skill.name}>
@@ -129,7 +128,7 @@ export default function AboutPage() {
 
               {/* Industry Skills */}
               <div>
-                <h3 className="text-xl font-semibold text-white mb-4">行业技能</h3>
+                <h3 className="text-xl font-semibold text-white mb-4">{t('industry_skills')}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {industrySkills.map((skill, index) => (
                     <div key={skill.name}>

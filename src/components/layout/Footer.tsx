@@ -294,10 +294,10 @@ export default function Footer() {
           </div>
           <div className="mt-4 flex justify-center space-x-6">
             <Link href={`/${locale}/privacy`} className="text-gray-500 hover:text-gray-400 text-sm transition-colors">
-              Privacy Policy
+              {t('footer.privacy_policy')}
             </Link>
             <Link href={`/${locale}/terms`} className="text-gray-500 hover:text-gray-400 text-sm transition-colors">
-              Terms of Service
+              {t('footer.terms_of_service')}
             </Link>
           </div>
         </div>

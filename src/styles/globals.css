@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google Fonts - Inter & Noto Sans SC */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+/* Note: Fonts loaded via next/font in layout.tsx for non-blocking optimization */
 
 :root {
   /* 背景色 */
@@ -38,7 +37,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-sans-sc), system-ui, sans-serif;
   @apply antialiased;
 }
 
@@ -65,6 +64,12 @@ body {
 ::selection {
   background: rgba(14, 165, 233, 0.3);
   color: var(--foreground);
+}
+
+/* Performance: Skip rendering of off-screen sections */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 @layer components {

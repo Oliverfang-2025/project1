@@ -31,20 +31,20 @@ export default function ContactPage() {
     };
 
     if (!formData.name.trim()) {
-      newErrors.name = '姓名不能为空';
+      newErrors.name = t('validation.name_required');
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = '邮箱不能为空';
+      newErrors.email = t('validation.email_required');
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = '邮箱格式不正确';
+      newErrors.email = t('validation.email_invalid');
     }
 
     if (!formData.content.trim()) {
-      newErrors.content = '留言内容不能为空';
+      newErrors.content = t('validation.message_required');
     } else if (formData.content.length > 5000) {
-      newErrors.content = '留言内容不能超过5000字符';
+      newErrors.content = t('validation.message_too_long');
     }
 
     setErrors(newErrors);
@@ -113,14 +113,14 @@ export default function ContactPage() {
     },
     {
       icon: Phone,
-      title: '电话',
+      title: t('phone'),
       value: '+86 136 7904 1859',
       href: 'tel:+8613679041859'
     },
     {
       icon: MapPin,
       title: t('info.location'),
-      value: '无锡 | 成都-郫都区',
+      value: t('location_value'),
       href: null
     }
   ];
@@ -170,7 +170,7 @@ export default function ContactPage() {
         className="mb-12"
       >
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t('title')}</h1>
-        <p className="text-gray-400 text-lg">期待与您的交流与合作</p>
+        <p className="text-gray-400 text-lg">{t('subtitle')}</p>
       </motion.div>
 
       <motion.div
@@ -185,7 +185,7 @@ export default function ContactPage() {
             <CardContent className="p-8">
               <h2 className="text-2xl font-semibold text-white mb-6 flex items-center">
                 <Send className="w-6 h-6 mr-3 text-primary-400" />
-                发送消息
+                {t('send_message')}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -199,7 +199,7 @@ export default function ContactPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="请输入您的姓名"
+                    placeholder={t('placeholder.name')}
                     error={!!errors.name}
                     className="bg-gray-800/50 border-gray-700"
                   />
@@ -224,7 +224,7 @@ export default function ContactPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="请输入您的邮箱"
+                    placeholder={t('placeholder.email')}
                     error={!!errors.email}
                     className="bg-gray-800/50 border-gray-700"
                   />
@@ -249,7 +249,7 @@ export default function ContactPage() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="消息主题（可选）"
+                    placeholder={t('placeholder.subject')}
                     className="bg-gray-800/50 border-gray-700"
                   />
                 </div>
@@ -263,7 +263,7 @@ export default function ContactPage() {
                     name="content"
                     value={formData.content}
                     onChange={handleChange}
-                    placeholder="请输入您的留言内容..."
+                    placeholder={t('placeholder.message')}
                     rows={6}
                     className={`w-full px-4 py-3 bg-gray-800/50 rounded-lg text-white border transition-all ${
                       errors.content
@@ -341,7 +341,7 @@ export default function ContactPage() {
         <motion.div variants={itemVariants} className="space-y-6">
           {/* Contact Information */}
           <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white mb-6">联系方式</h2>
+            <h2 className="text-2xl font-semibold text-white mb-6">{t('contact_info_title')}</h2>
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
@@ -414,12 +414,12 @@ export default function ContactPage() {
           >
             <Card className="bg-gradient-to-br from-primary-600/20 to-secondary-600/20 backdrop-blur-sm border-primary-600/30">
               <CardContent className="p-6">
-                <h3 className="text-white font-semibold mb-2">工作时间</h3>
+                <h3 className="text-white font-semibold mb-2">{t('working_hours')}</h3>
                 <p className="text-gray-300 text-sm mb-4">
-                  周一至周五: 9:00 - 18:00 (CST)
+                  {t('working_hours_text')}
                 </p>
                 <p className="text-gray-400 text-xs">
-                  通常会在24小时内回复您的消息
+                  {t('response_time')}
                 </p>
               </CardContent>
             </Card>

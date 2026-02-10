@@ -25,17 +25,18 @@ interface TimelineEvent {
 }
 
 export default function TimelinePage() {
-  const t = useTranslations('nav');
+  const t = useTranslations('timeline');
+  const nav = useTranslations('nav');
   const locale = useLocale();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
   const filterOptions = [
-    { value: 'all', label: { zh: '全部', en: 'All' }, icon: Filter },
-    { value: 'work', label: { zh: '工作', en: 'Work' }, icon: Briefcase },
-    { value: 'education', label: { zh: '教育', en: 'Education' }, icon: GraduationCap },
-    { value: 'achievement', label: { zh: '成就', en: 'Achievement' }, icon: Trophy }
+    { value: 'all', label: t('filter_all'), icon: Filter },
+    { value: 'work', label: t('filter_work'), icon: Briefcase },
+    { value: 'education', label: t('filter_education'), icon: GraduationCap },
+    { value: 'achievement', label: t('filter_achievement'), icon: Trophy }
   ];
 
   useEffect(() => {
@@ -104,8 +105,8 @@ export default function TimelinePage() {
 
   // Generate structured data
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: locale === 'zh' ? '首页' : 'Home', path: '' },
-    { name: locale === 'zh' ? '时间线' : 'Timeline', path: '/timeline' }
+    { name: nav('home'), path: '' },
+    { name: nav('timeline'), path: '/timeline' }
   ], locale);
 
   return (
@@ -113,8 +114,8 @@ export default function TimelinePage() {
       {/* Structured Data */}
       <JsonLd data={breadcrumbSchema} />
       <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t('timeline')}</h1>
-        <p className="text-gray-400 text-lg">记录职业发展与成长历程</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t('title')}</h1>
+        <p className="text-gray-400 text-lg">{t('subtitle')}</p>
       </div>
 
       {/* Filter Buttons */}
@@ -134,7 +135,7 @@ export default function TimelinePage() {
                 }`}
               >
                 <Icon className="w-4 h-4 mr-2" />
-                {option.label[locale as 'zh' | 'en']}
+                {option.label}
               </button>
             );
           })}
@@ -148,7 +149,7 @@ export default function TimelinePage() {
         </div>
       ) : events.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-gray-400 text-lg">暂无时间线事件</p>
+          <p className="text-gray-400 text-lg">{t('no_events')}</p>
         </div>
       ) : (
         <StaggerWrapper className="max-w-4xl mx-auto">

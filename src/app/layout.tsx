@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { Inter } from 'next/font/google';
+import { Inter, Noto_Sans_SC } from 'next/font/google';
 import '@/styles/globals.css';
 import dynamic from 'next/dynamic';
 
@@ -9,6 +9,15 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
+  variable: '--font-inter',
+});
+
+const notoSansSC = Noto_Sans_SC({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  display: 'swap',
+  preload: false,
+  variable: '--font-noto-sans-sc',
 });
 
 // Dynamic import DifyChat to reduce initial bundle size
@@ -88,7 +97,7 @@ export default async function RootLayout({
 
   return (
     <html>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${notoSansSC.variable} ${inter.className}`}>
         <NextIntlClientProvider messages={messages}>
           {children}
           <DifyChat />

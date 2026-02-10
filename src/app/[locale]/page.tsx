@@ -6,8 +6,7 @@ import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import JsonLd from '@/components/seo/JsonLd';
-import { generatePersonSchema, generateWebSiteSchema, generateBreadcrumbSchema } from '@/components/seo/JsonLd';
+import JsonLd, { generatePersonSchema, generateWebSiteSchema, generateBreadcrumbSchema } from '@/components/seo/JsonLd';
 import {
   PageWrapper,
   SectionWrapper,
@@ -18,13 +17,10 @@ import {
   ScrollIndicator,
   fadeIn,
   staggerItem
-} from '@/components/animations';
-import {
-  WaferScanningGrid,
-  HoverCard3D,
-  TestingScanLine,
-  StatusIndicator
-} from '@/components/semiconductors';
+} from '@/components/animations/MotionWrappers';
+import { WaferScanningGrid } from '@/components/semiconductors/core/WaferScanningGrid';
+import { HoverCard3D } from '@/components/semiconductors/interactions/HoverCard3D';
+import { TestingScanLine, StatusIndicator } from '@/components/semiconductors/core/TestingScanLine';
 
 interface Project {
   id: number;
@@ -56,6 +52,7 @@ interface Article {
 
 export default function Home() {
   const t = useTranslations('home');
+  const nav = useTranslations('nav');
   const locale = useLocale();
   const [featuredProjects, setFeaturedProjects] = useState([] as Project[]);
   const [latestArticles, setLatestArticles] = useState([] as Article[]);
@@ -96,7 +93,7 @@ export default function Home() {
   const personSchema = generatePersonSchema(locale);
   const webSiteSchema = generateWebSiteSchema(locale);
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: locale === 'zh' ? '首页' : 'Home', path: '' }
+    { name: nav('home'), path: '' }
   ], locale);
 
   return (
@@ -158,7 +155,7 @@ export default function Home() {
       </section>
 
       {/* Featured Projects Section */}
-      <SectionWrapper className="py-20 md:py-32 bg-background-secondary">
+      <SectionWrapper className="py-20 md:py-32 bg-background-secondary content-auto">
         <div className="container mx-auto px-4">
           <StaggerWrapper className="space-y-12">
             <StaggerItem className="text-center mb-16">
@@ -242,7 +239,7 @@ export default function Home() {
       </SectionWrapper>
 
       {/* Latest Articles Section */}
-      <SectionWrapper className="py-20 md:py-32 bg-background">
+      <SectionWrapper className="py-20 md:py-32 bg-background content-auto">
         <div className="container mx-auto px-4">
           <StaggerWrapper className="space-y-12">
             <StaggerItem className="text-center mb-16">
@@ -310,7 +307,7 @@ export default function Home() {
       </SectionWrapper>
 
       {/* About Preview Section */}
-      <SectionWrapper className="py-20 md:py-32 bg-background-secondary relative overflow-hidden">
+      <SectionWrapper className="py-20 md:py-32 bg-background-secondary relative overflow-hidden content-auto">
         {/* Testing Scan Line Background */}
         <TestingScanLine className="opacity-30" />
 
